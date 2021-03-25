@@ -90,4 +90,14 @@ public class ProductGatewayImpl implements ProductGateway {
 
         return productsFound;
     }
+
+    @Override
+    public Product findByCode(@NotNull String code) {
+
+        Product productFound = productRepository.findByCode(code)
+                .orElseThrow(() -> new NotFoundExeption("Code not found. Please check your code"));
+
+        return productFound;
+
+    }
 }

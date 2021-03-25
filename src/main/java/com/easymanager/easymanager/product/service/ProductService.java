@@ -19,4 +19,6 @@ public interface ProductService {
 
     Product findById(@NotNull Long id);
 
+    Product findByCode(@NotNull String code);
+
 }

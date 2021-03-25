@@ -17,4 +17,6 @@ public interface ProductGateway {
     Product update(@NotNull Product productToUpdate);
 
     List<Product> findAll();
+
+    Product findByCode(@NotNull String code);
 }

@@ -58,6 +58,19 @@ public class ProductController {
         return ResponseEntity.ok(ProductSaveResponse.fromModel(productFound));
     }
 
+    @GetMapping("/code/{code}")
+    @ApiOperation(value = "Find an Product for code.")
+    public ResponseEntity<ProductSaveResponse> findByCode(@Valid @PathVariable("code") @NotNull String code){
+
+        logger.debug("Begin findProductByCode: code ={}", code);
+
+        Product productFound = productService.findByCode(code);
+
+        logger.debug("End findProductByCode: productFound = {}", productFound);
+
+        return ResponseEntity.ok(ProductSaveResponse.fromModel(productFound));
+    }
+
     @PostMapping
     @ApiOperation(value = "Create an Product.")
     public ResponseEntity<Void> create(@RequestBody @Valid ProductSaveRequest productToCreate) {

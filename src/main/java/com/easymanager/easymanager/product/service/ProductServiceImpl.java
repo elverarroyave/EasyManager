@@ -95,4 +95,12 @@ public class ProductServiceImpl implements ProductService{
         return productFound;
     }
 
+    @Override
+    public Product findByCode(@NotNull String code) {
+
+        Product productFound = productGateway.findByCode(code);
+
+        return productFound;
+    }
+
 }
