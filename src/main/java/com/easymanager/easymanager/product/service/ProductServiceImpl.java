@@ -1,26 +1,21 @@
 package com.easymanager.easymanager.product.service;
 
-import com.easymanager.easymanager.config.exeption.NotFoundExeption;
-import com.easymanager.easymanager.product.io.repository.ProductRepository;
-import com.easymanager.easymanager.product.io.web.v1.model.ProductSaveRequest;
 import com.easymanager.easymanager.product.model.Product;
-import com.easymanager.easymanager.product.service.mapper.ProductMapper;
 import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService{
 
-    @Autowired
-    private ProductRepository productRepository;
+    private ProductGateway productGateway;
 
-    ProductMapper productMapper = new ProductMapper();
+    public ProductServiceImpl(ProductGateway productGateway){this.productGateway = productGateway;}
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -31,40 +26,73 @@ public class ProductServiceImpl implements ProductService{
 
         Product productToCreate = ProductSaveCmd.toModel(productToCreateCmd);
 
-        Product productCreated = productRepository.save(productToCreate);
+        Product productCreated = productGateway.save(productToCreate);
+
+        logger.debug("End create userCreated = {}", productCreated);
 
         return productCreated ;
     }
 
     @Override
     public List<Product> findAll() {
-        return productRepository.findAll();
+
+        logger.debug("Begin find all products");
+
+        List<Product> productsFound = productGateway.findAll();
+
+        logger.debug("End find all products");
+
+        return productsFound;
+    }
+
+
+    @Override
+    public Product update(@NotNull Long id,@NotNull ProductSaveCmd productToUpdateCmd) {
+
+        logger.debug("Begin update id={}", productToUpdateCmd);
+
+        Product productInDatabase = findById(id);
+
+        Product productToUpdate = productInDatabase.toBuilder()
+                .name(productToUpdateCmd.getName())
+                .code(productToUpdateCmd.getCode())
+                .baseQuantity(productToUpdateCmd.getBaseQuantity())
+                .stock(productToUpdateCmd.getStock())
+                .brand(productToUpdateCmd.getBrand())
+                .description(productToUpdateCmd.getDescription())
+                .privatePrice(productToUpdateCmd.getPrivatePrice())
+                .publicPrice(productToUpdateCmd.getPublicPrice())
+                .category(productToUpdateCmd.getCategory())
+                .build();
+
+        Product productUpdated = productGateway.update(productToUpdate);
+
+        logger.debug("End update userUpdated = {}", productUpdated);
+
+        return productUpdated;
     }
 
     @Override
-    public Product update(ProductSaveRequest productSaveRequest) {
-        Product product = productMapper.productRequesToEntity(productSaveRequest);
-        return productRepository.save(product);
+    public void deleteById(@NotNull Long id) {
+
+        logger.debug("Begin deleteById id={}", id);
+
+        productGateway.deleteById(id);
+
+        logger.debug("End deleteById id={}", id);
     }
 
     @Override
-    public void delete(Long id) {
-        if(!productRepository.existsById(id))
-            throw new NotFoundExeption("Id not found. Check your id please.");
-        productRepository.deleteById(id);
-    }
+    @Transactional(readOnly = true)
+    public Product findById(@NotNull Long id) {
 
-    @Override
-    public Product findById(Long id) {
-        if(!productRepository.existsById(id))
-            throw new NotFoundExeption("Id not found. Check your id please.");
-        return productRepository.findById(id).get();
-    }
+        logger.debug("Begin findById id = {}", id);
 
-    @Override
-    public Product findByCode(String code) {
-        return productRepository.findByCode(code);
-    }
+        Product productFound =productGateway.findById(id);
 
+        logger.debug("End findById id = {}", id);
+
+        return productFound;
+    }
 
 }

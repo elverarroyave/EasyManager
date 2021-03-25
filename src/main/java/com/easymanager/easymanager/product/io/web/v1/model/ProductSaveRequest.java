@@ -56,5 +56,4 @@ public class ProductSaveRequest {
                 .category(productToCreate.getCategory())
                 .build();
     }
-
 }

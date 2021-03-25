@@ -1,7 +1,7 @@
 package com.easymanager.easymanager.product.model;
 
 import lombok.*;
-import org.hibernate.annotations.GeneratorType;
+import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
@@ -34,5 +34,9 @@ public class Product {
     private double publicPrice;
 
     private String category;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
 
 }

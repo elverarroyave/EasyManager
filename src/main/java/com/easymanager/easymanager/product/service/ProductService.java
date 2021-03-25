@@ -1,22 +1,22 @@
 package com.easymanager.easymanager.product.service;
 
-import com.easymanager.easymanager.product.io.web.v1.model.ProductSaveRequest;
 import com.easymanager.easymanager.product.model.Product;
+
 import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface ProductService {
 
-    Product register(ProductSaveCmd productSaveRequest);
+    Product register(@NotNull ProductSaveCmd userToCreateCmd);
 
     List<Product> findAll();
 
-    Product update(ProductSaveRequest productSaveRequest);
+    Product update(@NotNull Long id, @NotNull ProductSaveCmd productToUpdateCmd);
 
-    void delete(Long id);
+    void deleteById(@NotNull Long id);
 
-    Product findById(Long id);
+    Product findById(@NotNull Long id);
 
-    Product findByCode(String code);
 }

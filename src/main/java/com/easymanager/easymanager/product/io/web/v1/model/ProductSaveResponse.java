@@ -3,6 +3,8 @@ package com.easymanager.easymanager.product.io.web.v1.model;
 import com.easymanager.easymanager.product.model.Product;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @Generated
 @NoArgsConstructor
@@ -30,6 +32,10 @@ public class ProductSaveResponse {
 
     private String category;
 
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
+
     public static ProductSaveResponse fromModel(Product product){
         return ProductSaveResponse.builder()
                 .id(product.getId())
@@ -42,6 +48,8 @@ public class ProductSaveResponse {
                 .privatePrice(product.getPrivatePrice())
                 .publicPrice(product.getPublicPrice())
                 .category(product.getCategory())
+                .createDate(product.getCreateDate())
+                .updateDate(product.getUpdateDate())
                 .build();
     }
 

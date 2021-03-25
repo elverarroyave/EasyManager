@@ -13,13 +13,17 @@ cd $packageName
 	mkdir io
 	echo "$packageName/io created"
 		cd io
-			mkdir repository web
+			mkdir repository web gateway
 			echo "$packageName/io/repository created"
 			echo "$packageName/io/web created"
+			echo "$packageName/io/gateway created"
 			cd web 
-				mkdir v1 request
+				mkdir v1
 				echo "$packageName/io/web/v1 created"
-				echo "$packageName/io/web/request created"
+				cd v1
+					mkdir model
+					echo "$packageName/io/web/v1/model created"
+				cd ..		
 			cd ..
 		cd ..
 	mkdir model
@@ -27,9 +31,8 @@ cd $packageName
 	mkdir service
 	echo "$packageName/service created"	
 		cd service
-			mkdir impl mapper
-			echo "$packageName/service/impl created"
-			echo "$packageName/service/mapper created"
+			mkdir model
+			echo "$packageName/service/model created"
 		cd ..
 	cd ..
 echo "***************All right!****************"

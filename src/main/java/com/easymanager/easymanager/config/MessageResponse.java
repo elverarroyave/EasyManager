@@ -1,6 +1,6 @@
-package com.easymanager.easymanager.product.io.web.request;
+package com.easymanager.easymanager.config;
 
-public class ProductResponse {
+public class MessageResponse {
 
     private String message;
 
@@ -8,9 +8,9 @@ public class ProductResponse {
 
     public void setMessage(String message){this.message = message;}
 
-    public ProductResponse(String message){
+    public MessageResponse(String message){
         this.message = message;
     }
 
-    public ProductResponse(){}
+    public MessageResponse(){}
 }

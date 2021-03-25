@@ -2,7 +2,6 @@ package com.easymanager.easymanager.config;
 
 import com.easymanager.easymanager.config.exeption.BadRequestExeption;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
-import com.easymanager.easymanager.product.io.web.request.ProductResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,11 +16,11 @@ public class ProductExceptionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductExceptionController.class);
 
     @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ProductResponse> handleMethodArgumentNotValidMethod(MethodArgumentNotValidException ex){
+    protected ResponseEntity<MessageResponse> handleMethodArgumentNotValidMethod(MethodArgumentNotValidException ex){
         LOGGER.error("EL ATRIBUTO \"" + ex.getBindingResult().getFieldError().getField().toUpperCase() + "\" " +
                 ex.getBindingResult().getFieldError().getDefaultMessage().toUpperCase());
 
-        return new ResponseEntity<>(new ProductResponse(
+        return new ResponseEntity<>(new MessageResponse(
                 "EL ATRIBUTO \"" + ex.getBindingResult().getFieldError().getField().toUpperCase() + "\" " +
                         ex.getBindingResult().getFieldError().getDefaultMessage().toUpperCase()),
                 HttpStatus.BAD_REQUEST);

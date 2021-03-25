@@ -21,3 +21,9 @@ spring:
       enabled: true
     servlet:
       context-path: /easymanager
+
+  security:
+    user:
+      name: test
+      password: test
+
