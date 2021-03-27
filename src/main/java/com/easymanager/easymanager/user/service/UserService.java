@@ -17,4 +17,6 @@ public interface UserService {
     void delete(@NotNull Long id);
 
     User findById(@NotNull Long id);
+
+    User findByEmail(@NotNull String email);
 }

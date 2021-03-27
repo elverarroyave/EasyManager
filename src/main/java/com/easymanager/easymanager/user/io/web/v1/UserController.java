@@ -107,4 +107,16 @@ public class UserController {
         return new ResponseEntity<>(new MessageResponse("User deleted successfully"), HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/email/{email}")
+    @ApiOperation(value = "Find an user for email")
+    public ResponseEntity<UserSaveResponse> findByEmail(@Valid @PathVariable("email") @NotNull String email){
+        logger.debug("Begin find user for email={}", email);
+
+        User userFound = userService.findByEmail(email);
+
+        logger.debug("End findUserByEmail: userFound = {}", userFound);
+
+        return ResponseEntity.ok(UserSaveResponse.fromModel(userFound));
+    }
+
 }

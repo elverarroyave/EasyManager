@@ -16,4 +16,6 @@ public interface UserGateway {
     User update(@NotNull User userToUpdate);
 
     List<User> findAll();
+
+    User findByEmail(@NotNull String email);
 }

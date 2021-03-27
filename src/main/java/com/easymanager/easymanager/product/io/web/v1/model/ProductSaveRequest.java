@@ -20,7 +20,6 @@ public class ProductSaveRequest {
 
     @NotNull(message = "Es obligatorio ")
     @NotBlank(message = "No puede estar vacio ")
-    @UniqueElements(message = "El codigo ya esta usado")
     private String code;
 
     @NotNull(message = "Es obligatorio ")

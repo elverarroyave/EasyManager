@@ -88,4 +88,17 @@ public class UserGategayImpl implements UserGateway {
 
         return usersFound;
     }
+
+    @Override
+    public User findByEmail(@NotNull String email) {
+
+        logger.debug("Begin find find user for: email={}", email);
+
+        User userFound = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundExeption("User not found, please check your email"));
+
+        logger.debug("End find user for email userFound={}", userFound);
+
+        return userFound;
+    }
 }

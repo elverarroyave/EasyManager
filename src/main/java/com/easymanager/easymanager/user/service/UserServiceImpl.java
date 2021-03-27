@@ -98,4 +98,16 @@ public class UserServiceImpl implements UserService{
         return userFound;
     }
 
+    @Override
+    public User findByEmail(@NotNull String email){
+
+        logger.debug("Begin find user for email = {}", email);
+
+        User userFound = userGateway.findByEmail(email);
+
+        logger.debug("End find user for email userFound = {}" , userFound);
+
+        return userFound;
+    }
+
 }
