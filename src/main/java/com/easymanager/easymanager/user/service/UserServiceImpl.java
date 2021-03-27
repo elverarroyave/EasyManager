@@ -70,11 +70,11 @@ public class UserServiceImpl implements UserService{
                 .address(userToUpdateCmd.getAddress())
                 .build();
 
-        User userUpdate = userGateway.update(userToUpdate);
+        User userUpdated = userGateway.update(userToUpdate);
 
         logger.debug("End update user user");
 
-        return userUpdate;
+        return userUpdated;
     }
 
     @Override

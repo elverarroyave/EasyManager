@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Find user for id")
+    @ApiOperation(value = "Find user by id")
     public ResponseEntity<UserSaveResponse> findById(@Valid @PathVariable("id") @NotNull Long id){
 
         logger.debug("Begin find user for id={}", id);
@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update an user for id")
+    @ApiOperation(value = "Update an user by id")
     public ResponseEntity<UserSaveResponse> update(@PathVariable Long id,
                                                    @RequestBody @Valid UserSaveRequest userToUpdate){
 
@@ -96,7 +96,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    @ApiOperation(value = "Delete an user for id ")
+    @ApiOperation(value = "Delete an user by id ")
     public ResponseEntity<MessageResponse> delete(@PathVariable Long id){
         logger.debug("Begin delete: id = {}", id);
 
@@ -108,7 +108,7 @@ public class UserController {
     }
 
     @GetMapping("/email/{email}")
-    @ApiOperation(value = "Find an user for email")
+    @ApiOperation(value = "Find an user by email")
     public ResponseEntity<UserSaveResponse> findByEmail(@Valid @PathVariable("email") @NotNull String email){
         logger.debug("Begin find user for email={}", email);
 

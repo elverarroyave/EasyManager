@@ -12,7 +12,7 @@ public interface RoleService {
 
     Role findById(@NotNull Long id);
 
-    Role update(@NotNull Long id,@NotNull Role RoleToUpdate);
+    Role update(@NotNull Long id,@NotNull RoleSaveCmd RoleToUpdate);
 
     void deleteById(@NotNull Long id);
 

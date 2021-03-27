@@ -34,17 +34,44 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public Role findById(@NotNull Long id) {
-        return null;
+
+        logger.debug("Begin find role by id = {}", id);
+
+        Role roleFound = roleGateway.findById(id);
+
+        logger.debug("End find role by id ");
+
+        return roleFound;
     }
 
     @Override
-    public Role update(@NotNull Long id, @NotNull Role RoleToUpdate) {
-        return null;
+    public Role update(@NotNull Long id, @NotNull RoleSaveCmd roleToUpdateCmd) {
+
+        logger.debug("Begin update role: id = {}, RoleToUpdate={}", id, roleToUpdateCmd);
+
+        Role roleInDataBase = roleGateway.findById(id);
+
+        Role roleToUpdate = roleInDataBase.toBuilder()
+                .name(roleToUpdateCmd.getName())
+                .description(roleToUpdateCmd.getDescription())
+                .state(roleToUpdateCmd.isStatus())
+                .build();
+
+        Role roleUpdated = roleGateway.update(roleToUpdate);
+
+        logger.debug("End update role: roleUpdated = {}", roleUpdated);
+
+        return roleUpdated;
+
     }
 
     @Override
     public void deleteById(@NotNull Long id) {
+        logger.debug("Begin delete role by id");
 
+        roleGateway.delete(id);
+
+        logger.debug("End delete role by id");
     }
 
     @Override
@@ -61,11 +88,24 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public List<Role> findActives() {
-        return null;
+
+        logger.debug("Begin findActive roles");
+
+        List<Role> activeRoles = roleGateway.findActives();
+
+        logger.debug("End findActive roles");
+
+        return activeRoles;
     }
 
     @Override
     public List<Role> findUnables() {
-        return null;
+        logger.debug("Begin findUnable roles");
+
+        List<Role> unableRoles = roleGateway.findUnables();
+
+        logger.debug("End findUnable roles");
+
+        return unableRoles;
     }
 }
