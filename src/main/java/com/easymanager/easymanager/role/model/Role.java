@@ -42,7 +42,8 @@ public class Role {
     @Column(name = "state")
     private boolean state;
 
+    /*
     @ManyToMany(mappedBy = "rolesOfUser")
     private Set<User> users;
-
+     */
 }
