@@ -1,9 +1,12 @@
 package com.easymanager.easymanager.user.service;
 
+import com.easymanager.easymanager.role.model.Role;
+import com.easymanager.easymanager.role.service.RoleGateway;
 import com.easymanager.easymanager.user.model.User;
 import com.easymanager.easymanager.user.service.model.UserSaveCmd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
 
     private UserGateway userGateway;
+
+    @Autowired
+    private RoleGateway roleGateway;
 
     public UserServiceImpl(UserGateway userGateway){this.userGateway = userGateway;}
 
@@ -39,6 +45,17 @@ public class UserServiceImpl implements UserService{
         logger.debug("End create userCreated = {}", userCreated);
 
         return userCreated;
+    }
+
+    @Override
+    public void addRoleToUser(@NotNull Long idUser, @NotNull Long idRol){
+
+        User userToAddRole = userGateway.findById(idUser);
+
+        Role roleToAddInUser = roleGateway.findById(idRol);
+
+        userToAddRole.addRole(roleToAddInUser);
+
     }
 
     @Override
@@ -68,6 +85,7 @@ public class UserServiceImpl implements UserService{
                 .numberPhone(userToUpdateCmd.getNumberPhone())
                 .email(userToUpdateCmd.getEmail())
                 .address(userToUpdateCmd.getAddress())
+                .rolesOfUser((userToUpdateCmd.getRolesOfUser()))
                 .build();
 
         User userUpdated = userGateway.update(userToUpdate);

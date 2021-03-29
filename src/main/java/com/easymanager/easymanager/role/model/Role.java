@@ -1,8 +1,10 @@
 package com.easymanager.easymanager.role.model;
 
+import com.easymanager.easymanager.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
@@ -39,5 +41,8 @@ public class Role {
 
     @Column(name = "state")
     private boolean state;
+
+    @ManyToMany(mappedBy = "rolesOfUser")
+    private Set<User> users;
 
 }

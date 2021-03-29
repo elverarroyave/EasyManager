@@ -1,11 +1,13 @@
 package com.easymanager.easymanager.user.service.model;
 
+import com.easymanager.easymanager.role.model.Role;
 import com.easymanager.easymanager.user.model.User;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,6 +26,8 @@ public class UserSaveCmd {
     private String email;
 
     private String address;
+
+    private Set<Role> rolesOfUser;
 
     public static User toModel(UserSaveCmd userToCreateCmd){
         return User.builder()

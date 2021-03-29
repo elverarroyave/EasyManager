@@ -1,6 +1,7 @@
 package com.easymanager.easymanager.user.io.web.v1;
 
 import com.easymanager.easymanager.config.MessageResponse;
+import com.easymanager.easymanager.role.io.web.v1.model.RoleSaveResponse;
 import com.easymanager.easymanager.user.io.web.v1.model.UserSaveRequest;
 import com.easymanager.easymanager.user.io.web.v1.model.UserSaveResponse;
 import com.easymanager.easymanager.user.model.User;
@@ -117,6 +118,15 @@ public class UserController {
         logger.debug("End findUserByEmail: userFound = {}", userFound);
 
         return ResponseEntity.ok(UserSaveResponse.fromModel(userFound));
+    }
+
+    @PutMapping("/addRole/{idUser}/{idRole}")
+    @ApiOperation(value = "Add rol to user")
+    public ResponseEntity<MessageResponse> addRoleToUser(@Valid @PathVariable Long idUser,
+                                                          @Valid @PathVariable Long idRole){
+        userService.addRoleToUser(idUser,idRole);
+
+        return  new ResponseEntity<>(new MessageResponse("Role add to user successfully"), HttpStatus.NO_CONTENT);
     }
 
 }

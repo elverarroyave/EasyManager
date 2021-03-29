@@ -19,4 +19,6 @@ public interface UserService {
     User findById(@NotNull Long id);
 
     User findByEmail(@NotNull String email);
+
+    void addRoleToUser(@NotNull Long idUser, @NotNull Long idRol);
 }
