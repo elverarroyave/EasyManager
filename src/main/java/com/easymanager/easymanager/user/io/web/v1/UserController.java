@@ -1,7 +1,6 @@
 package com.easymanager.easymanager.user.io.web.v1;
 
 import com.easymanager.easymanager.config.MessageResponse;
-import com.easymanager.easymanager.role.io.web.v1.model.RoleSaveResponse;
 import com.easymanager.easymanager.user.io.web.v1.model.UserSaveRequest;
 import com.easymanager.easymanager.user.io.web.v1.model.UserSaveResponse;
 import com.easymanager.easymanager.user.model.User;

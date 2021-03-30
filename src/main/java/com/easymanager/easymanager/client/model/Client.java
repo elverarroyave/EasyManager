@@ -3,6 +3,7 @@ package com.easymanager.easymanager.client.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Builder(toBuilder = true)
@@ -26,4 +27,8 @@ public class Client {
     private String email;
 
     private String address;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
 }

@@ -51,6 +51,7 @@ public class RoleGatewayImpl implements RoleGateway {
 
         logger.debug("Begin delete role for id = {}", id);
 
+        findById(id);
         roleRepository.deleteById(id);
 
         logger.debug("End delete role for id");
