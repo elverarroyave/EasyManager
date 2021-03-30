@@ -57,4 +57,13 @@ public class ClientGatewayImpl implements ClientGateway {
         findById(id);
         clientReposiroty.deleteById(id);
     }
+
+    @Override
+    public Client findByDocument(@NotNull String numDocument) {
+
+        Client clientFound = clientReposiroty.findByDocument(numDocument)
+                .orElseThrow(() -> new NotFoundExeption("Number document not found, please check."));
+
+        return clientFound;
+    }
 }

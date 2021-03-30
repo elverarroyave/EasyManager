@@ -52,4 +52,9 @@ public class ClientServiceImpl implements ClientService{
     public void deleteById(@NotNull Long id) {
         clientGateway.deleteById(id);
     }
+
+    @Override
+    public Client findByNumDocument(@NotNull String numDocument) {
+        return clientGateway.findByDocument(numDocument);
+    }
 }

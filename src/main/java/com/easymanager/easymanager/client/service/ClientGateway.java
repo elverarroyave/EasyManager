@@ -17,4 +17,6 @@ public interface ClientGateway {
 
     void deleteById(@NotNull Long id);
 
+    Client findByDocument(@NotNull String numDocument);
+
 }

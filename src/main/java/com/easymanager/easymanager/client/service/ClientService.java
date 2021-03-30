@@ -17,4 +17,6 @@ public interface ClientService {
     Client update(@NotNull Long id, @NotNull ClientSaveCmd clientToUpdate);
 
     void deleteById(@NotNull Long id);
+
+    Client findByNumDocument(@NotNull String numDocument);
 }

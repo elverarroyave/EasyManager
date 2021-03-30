@@ -58,6 +58,13 @@ public class ClientController {
         return ResponseEntity.ok(ClientSaveResponse.fromModel(clientFound));
     }
 
+    @PostMapping("/findByDocument/{numDocument}")
+    @ApiOperation(value = "Find client by number document.")
+    public ResponseEntity<ClientSaveResponse> findByNumDocument(@Valid @PathVariable("numDocument") @NotNull String numDocument){
+        Client clientFound = clientService.findByNumDocument(numDocument);
+        return ResponseEntity.ok(ClientSaveResponse.fromModel(clientFound));
+    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "Update and client")
     public ResponseEntity<ClientSaveResponse> update(@Valid @PathVariable("id") @NotNull Long id,
