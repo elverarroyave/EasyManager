@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService{
                 .numberPhone(userToUpdateCmd.getNumberPhone())
                 .email(userToUpdateCmd.getEmail())
                 .address(userToUpdateCmd.getAddress())
-                .rolesOfUser((userToUpdateCmd.getRolesOfUser()))
+                .rolesOfUser(userInDataBase.getRolesOfUser())
                 .build();
 
         User userUpdated = userGateway.update(userToUpdate);

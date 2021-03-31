@@ -27,8 +27,6 @@ public class UserSaveCmd {
 
     private String address;
 
-    private Set<Role> rolesOfUser;
-
     public static User toModel(UserSaveCmd userToCreateCmd){
         return User.builder()
                 .name(userToCreateCmd.getName())
