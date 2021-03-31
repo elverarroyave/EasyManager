@@ -2,6 +2,7 @@ package com.easymanager.easymanager.user.service;
 
 import com.easymanager.easymanager.role.model.Role;
 import com.easymanager.easymanager.role.service.RoleGateway;
+import com.easymanager.easymanager.user.io.web.v1.model.UserSaveResponse;
 import com.easymanager.easymanager.user.model.User;
 import com.easymanager.easymanager.user.service.model.UserSaveCmd;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,15 +61,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> findAll() {
+    public List<UserSaveResponse> findAll() {
 
         logger.debug("Begin find all users");
 
         List<User> usersFound = userGateway.findAll();
 
-        logger.debug("End find all users");
+        List<UserSaveResponse> usersFoundResponse = new ArrayList<>();
 
-        return usersFound;
+        for (User user : usersFound ) {
+            usersFoundResponse.add(UserSaveResponse.fromModel(user));
+        }
+
+        logger.debug("End find all users = {}", usersFoundResponse);
+
+        return usersFoundResponse;
     }
 
     @Override

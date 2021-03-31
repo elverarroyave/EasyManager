@@ -12,9 +12,10 @@ import java.util.Set;
 @Data
 @Builder
 public class UserSaveResponse {
-    private String name;
 
-    private String password;
+    private Long id;
+
+    private String name;
 
     private String typeDocument;
 
@@ -34,8 +35,8 @@ public class UserSaveResponse {
 
     public static UserSaveResponse fromModel(User userToResponse){
         return UserSaveResponse.builder()
+                .id(userToResponse.getId())
                 .name(userToResponse.getName())
-                .password(userToResponse.getPassword())
                 .typeDocument(userToResponse.getTypeDocument())
                 .numDocument(userToResponse.getNumDocument())
                 .numberPhone(userToResponse.getNumberPhone())

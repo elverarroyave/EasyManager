@@ -33,10 +33,10 @@ public class UserController {
 
     @GetMapping
     @ApiOperation(value = "Find all users")
-    public List<User> findAll(){
+    public List<UserSaveResponse> findAll(){
         logger.debug("Begin find all users");
 
-        List<User> usersFound = userService.findAll();
+        List<UserSaveResponse> usersFound = userService.findAll();
 
         logger.debug("End find all users");
 
