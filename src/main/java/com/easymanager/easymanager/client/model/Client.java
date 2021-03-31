@@ -1,9 +1,12 @@
 package com.easymanager.easymanager.client.model;
 
+import com.easymanager.easymanager.sale.model.Sale;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
@@ -28,7 +31,18 @@ public class Client {
 
     private String address;
 
+    @OneToMany(
+            mappedBy = "client",
+            cascade = CascadeType.ALL
+    )
+    private List<Sale> shopping = new ArrayList<>();
+
     private LocalDateTime createDate;
 
     private LocalDateTime updateDate;
+
+    public Client(Long id, String name) {
+        this.id = id;
+        this.fullName = name;
+    }
 }
