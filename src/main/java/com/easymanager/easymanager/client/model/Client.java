@@ -41,8 +41,4 @@ public class Client {
 
     private LocalDateTime updateDate;
 
-    public Client(Long id, String name) {
-        this.id = id;
-        this.fullName = name;
-    }
 }

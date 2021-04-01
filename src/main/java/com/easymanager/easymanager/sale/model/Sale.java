@@ -35,9 +35,4 @@ public class Sale {
             cascade = CascadeType.ALL)
     private List<SaleDetail> productsDetail = new ArrayList<>();
 
-    public Sale(Long id, Client client) {
-        this.client = client;
-        this.id = id;
-    }
-
 }
