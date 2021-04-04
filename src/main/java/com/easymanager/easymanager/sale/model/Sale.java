@@ -1,7 +1,7 @@
 package com.easymanager.easymanager.sale.model;
 
 import com.easymanager.easymanager.client.model.Client;
-import com.easymanager.easymanager.user.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +26,7 @@ public class Sale {
 
     private LocalDateTime updateDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

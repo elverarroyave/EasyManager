@@ -59,8 +59,6 @@ public class EasymanagerApplication {
 		productsDetail = Arrays.asList(product1Details,product2Details,product3Details);
 		sale.setProductsDetail(productsDetail);
 
-		//Persistence sale
-		//saleRepository.save(sale);
 
 		//Add sale to client
 		List<Sale> sales = Arrays.asList(sale);

@@ -2,9 +2,8 @@ package com.easymanager.easymanager.sale.model;
 
 
 import com.easymanager.easymanager.product.model.Product;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -17,6 +16,7 @@ public class SaleDetail {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
