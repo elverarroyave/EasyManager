@@ -17,4 +17,6 @@ public interface SaleGateway {
 
     void deleteById(@NotNull Long id);
 
+    List<Sale> findByClientId(Long id);
+
 }

@@ -63,4 +63,12 @@ public class SaleGatewayImpl implements SaleGateway {
         findById(id);
         saleRepository.deleteById(id);
     }
+
+    @Override
+    public List<Sale> findByClientId(Long id) {
+
+        List<Sale> salesFound = saleRepository.findByClientId(id);
+
+        return salesFound;
+    }
 }

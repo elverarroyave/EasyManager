@@ -5,8 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class SaleSaveCmd {
+public class ItemDetail {
 
+     Long productId;
 
+     int quantity;
 
 }
