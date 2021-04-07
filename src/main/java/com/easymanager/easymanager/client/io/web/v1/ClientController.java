@@ -67,8 +67,8 @@ public class ClientController {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Update and client")
-    public ResponseEntity<ClientSaveResponse> update(@Valid @PathVariable("id") @NotNull Long id,
-                                                     @NotNull @RequestBody ClientSaveRequest clientToUpdateRequest){
+    public ResponseEntity<ClientSaveResponse> update(@PathVariable("id") @NotNull Long id,
+                                                     @RequestBody @Valid ClientSaveRequest clientToUpdateRequest){
 
         ClientSaveCmd clientToUpdateCmd = ClientSaveRequest.toModel(clientToUpdateRequest);
 
