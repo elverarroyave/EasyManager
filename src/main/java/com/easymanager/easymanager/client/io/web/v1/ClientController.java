@@ -46,9 +46,9 @@ public class ClientController {
 
     @GetMapping
     @ApiOperation(value = "Find all clients.")
-    public List<Client> findAll(){
+    public List<ClientSaveResponse> findAll(){
         List<Client> clientsFound = clientService.findAll();
-        return clientsFound;
+        return ClientSaveResponse.fromModelList(clientsFound);
     }
 
     @PostMapping("/{id}")
@@ -68,7 +68,7 @@ public class ClientController {
     @PutMapping("/{id}")
     @ApiOperation(value = "Update and client")
     public ResponseEntity<ClientSaveResponse> update(@Valid @PathVariable("id") @NotNull Long id,
-                                                     @NotNull ClientSaveRequest clientToUpdateRequest){
+                                                     @NotNull @RequestBody ClientSaveRequest clientToUpdateRequest){
 
         ClientSaveCmd clientToUpdateCmd = ClientSaveRequest.toModel(clientToUpdateRequest);
 

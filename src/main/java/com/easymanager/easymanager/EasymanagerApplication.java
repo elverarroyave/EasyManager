@@ -24,9 +24,9 @@ public class EasymanagerApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext configurableApplicationContext =
-			SpringApplication.run(EasymanagerApplication.class, args);
+				SpringApplication.run(EasymanagerApplication.class, args);
 
-
+		/*
 		//Beans
 		SaleRepository saleRepository = configurableApplicationContext.getBean(SaleRepository.class);
 		ClientReposiroty clientReposiroty = configurableApplicationContext.getBean(ClientReposiroty.class);
@@ -59,13 +59,17 @@ public class EasymanagerApplication {
 		productsDetail = Arrays.asList(product1Details,product2Details,product3Details);
 		sale.setProductsDetail(productsDetail);
 
+		//Persistence sale
+		saleRepository.save(sale);
 
 		//Add sale to client
 		List<Sale> sales = Arrays.asList(sale);
 		client1.setShopping(sales);
 
 		//Persistence client
-		clientReposiroty.save(client1);
+		//clientReposiroty.save(client1);
+
+		 */
 
 	}
 
