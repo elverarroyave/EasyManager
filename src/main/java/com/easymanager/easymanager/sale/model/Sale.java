@@ -1,7 +1,10 @@
 package com.easymanager.easymanager.sale.model;
 
 import com.easymanager.easymanager.client.model.Client;
+import com.easymanager.easymanager.user.model.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,14 +29,17 @@ public class Sale {
 
     private LocalDateTime updateDate;
 
-    @JsonIgnore
-    @ManyToOne
+    //Ralationship with Client
+    @ManyToOne(
+            fetch = FetchType.EAGER
+    )
     @JoinColumn(name = "client_id")
+    @JsonBackReference
     private Client client;
 
-    @OneToMany(
-            mappedBy = "sale",
-            cascade = CascadeType.ALL)
+    //Relationship wiht SaleDetail
+    @OneToMany
+    @JoinColumn(name = "SALE_ID")
     private List<SaleDetail> productsDetail = new ArrayList<>();
 
 }

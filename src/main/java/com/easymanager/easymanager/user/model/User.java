@@ -1,6 +1,7 @@
 package com.easymanager.easymanager.user.model;
 
 import com.easymanager.easymanager.role.model.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,8 +38,8 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "roleId")
+            joinColumns = @JoinColumn(name = "user_Id"),
+            inverseJoinColumns = @JoinColumn(name = "role_Id")
     )
     private Set<Role> rolesOfUser;
 
@@ -49,5 +50,4 @@ public class User {
     public void addRole(Role roleToAdd){
         this.rolesOfUser.add(roleToAdd);
     }
-
 }

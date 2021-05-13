@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ItemDetail {
+public class Item {
 
      Long productId;
 

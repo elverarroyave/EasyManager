@@ -1,6 +1,8 @@
 package com.easymanager.easymanager.client.model;
 
 import com.easymanager.easymanager.sale.model.Sale;
+import com.easymanager.easymanager.sale.model.SaleDetail;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,10 +33,11 @@ public class Client {
 
     private String address;
 
+
     @OneToMany(
-            mappedBy = "client",
-            cascade = CascadeType.ALL
+            fetch = FetchType.LAZY, mappedBy = "client"
     )
+    @JsonManagedReference
     private List<Sale> shopping = new ArrayList<>();
 
     private LocalDateTime createDate;

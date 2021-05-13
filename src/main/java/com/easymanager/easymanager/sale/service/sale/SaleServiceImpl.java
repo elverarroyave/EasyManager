@@ -1,11 +1,12 @@
-package com.easymanager.easymanager.sale.service;
+package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.ClientGateway;
 import com.easymanager.easymanager.product.service.ProductGateway;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.model.SaleDetail;
-import com.easymanager.easymanager.sale.service.model.ItemDetail;
+import com.easymanager.easymanager.sale.service.model.Item;
+import com.easymanager.easymanager.sale.service.saleDetails.SaleDetailsGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,30 +25,44 @@ public class SaleServiceImpl implements SaleService{
 
     @Autowired
     ProductGateway productGateway;
+
+    @Autowired
+    SaleDetailsGateway saleDetailsGateway;
     
     @Override
-    public Sale create(@NotNull String idClient, @NotNull List<ItemDetail> listProducts) {
+    public Sale create(@NotNull String idClient, @NotNull List<Item> items) {
 
-        Sale saleToCreate = new Sale();
-
+        // We create an list products details
         List<SaleDetail> productsDetail = new ArrayList<>();
 
-        for (ItemDetail itemDetail : listProducts) {
+        // Add items to the list products
+        for (Item item : items) {
             SaleDetail productDetail = new SaleDetail();
-            productDetail.setProduct(productGateway.findById(itemDetail.getProductId()));
-            productDetail.setAmount(itemDetail.getQuantity());
-            productDetail.setSale(saleToCreate);
-
+            productDetail.setProduct(productGateway.findById(item.getProductId()));
+            productDetail.setAmount(item.getQuantity());
             productsDetail.add(productDetail);
         }
 
+        // Persist productsDetails
+        saleDetailsGateway.save(productsDetail);
+
+        // Search client to will sale
         Client clientToSale =  clientGateway.findByDocument(idClient);
 
-        saleToCreate.setClient(clientToSale);
-        saleToCreate.setProductsDetail(productsDetail);
+        // Create void sale
+        Sale saleCreate = new Sale();
 
-        Sale saleCreted = saleGateway.save(saleToCreate);
+        // Add attributes to sale
+        saleCreate.setClient(clientToSale);
+        saleCreate.setProductsDetail(productsDetail);
+
+        // Persist Sale
+        Sale saleCreted = saleGateway.save(saleCreate);
 
         return saleCreted;
     }
+
+
+
+
 }

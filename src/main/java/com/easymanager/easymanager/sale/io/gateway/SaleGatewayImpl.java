@@ -3,7 +3,7 @@ package com.easymanager.easymanager.sale.io.gateway;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import com.easymanager.easymanager.sale.io.repository.SaleRepository;
 import com.easymanager.easymanager.sale.model.Sale;
-import com.easymanager.easymanager.sale.service.SaleGateway;
+import com.easymanager.easymanager.sale.service.sale.SaleGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -33,15 +33,15 @@ public class ProductSaveCmd {
 
     public static Product toModel(ProductSaveCmd productToCreateCmd){
         return Product.builder()
-                .name(productToCreateCmd.getName())
-                .code(productToCreateCmd.getCode())
-                .baseQuantity(productToCreateCmd.getBaseQuantity())
-                .stock(productToCreateCmd.getStock())
-                .brand(productToCreateCmd.getBrand())
-                .description(productToCreateCmd.getDescription())
-                .privatePrice(productToCreateCmd.getPrivatePrice())
-                .publicPrice(productToCreateCmd.getPublicPrice())
-                .category(productToCreateCmd.getCategory())
-                .build();
-    }
+                    .name(productToCreateCmd.getName())
+                    .code(productToCreateCmd.getCode())
+                    .baseQuantity(productToCreateCmd.getBaseQuantity())
+                    .stock(productToCreateCmd.getStock())
+                    .brand(productToCreateCmd.getBrand())
+                    .description(productToCreateCmd.getDescription())
+                    .privatePrice(productToCreateCmd.getPrivatePrice())
+                    .publicPrice(productToCreateCmd.getPublicPrice())
+                    .category(productToCreateCmd.getCategory())
+                    .build();
+        }
 }

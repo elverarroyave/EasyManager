@@ -1,4 +1,4 @@
-package com.easymanager.easymanager.sale.service;
+package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.sale.model.Sale;
 

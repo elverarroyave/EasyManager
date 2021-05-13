@@ -1,8 +1,8 @@
 package com.easymanager.easymanager.sale.io.web.v1;
 
 import com.easymanager.easymanager.sale.model.Sale;
-import com.easymanager.easymanager.sale.service.SaleService;
-import com.easymanager.easymanager.sale.service.model.ItemDetail;
+import com.easymanager.easymanager.sale.service.sale.SaleService;
+import com.easymanager.easymanager.sale.service.model.Item;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -32,9 +32,9 @@ public class SaleController {
 
     @PostMapping
     @ApiOperation(value = "Create a sale")
-    public ResponseEntity<Void> create(@RequestBody @Valid List<ItemDetail> itemDetails, String idClient){
+    public ResponseEntity<Void> create(@RequestBody @Valid List<Item> items, String idClient){
 
-        Sale saleCreate = saleService.create(idClient, itemDetails);
+        Sale saleCreate = saleService.create(idClient, items);
 
         //El estandar de los create dice no devolver un objeto si no la localizacion de este.
         URI location = fromUriString("/api/v1/sales").path("/{id}")

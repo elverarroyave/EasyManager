@@ -1,6 +1,8 @@
 package com.easymanager.easymanager.role.model;
 
 import com.easymanager.easymanager.user.model.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

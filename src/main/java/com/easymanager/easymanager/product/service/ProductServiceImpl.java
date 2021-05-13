@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService{
 
         logger.debug("End create userCreated = {}", productCreated);
 
-        return productCreated ;
+        return productCreated;
     }
 
     @Override
