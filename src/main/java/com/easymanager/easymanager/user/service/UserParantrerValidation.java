@@ -21,6 +21,8 @@ public class UserParantrerValidation{
             throw new BadRequestExeption("This emil is already used by another user.");
         }
 
+
+
     }
 
 

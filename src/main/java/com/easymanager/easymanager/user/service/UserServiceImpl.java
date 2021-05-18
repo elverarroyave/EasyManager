@@ -140,4 +140,16 @@ public class UserServiceImpl implements UserService{
         return userFound;
     }
 
+    @Override
+    public User findByDocument(@NotNull String numDocument) {
+
+        logger.debug("Begin find user for numDocument={}", numDocument);
+
+        User userFound = userGateway.findByDocument(numDocument);
+
+        logger.debug("End find user for userFound={}", userFound);
+
+        return userFound;
+    }
+
 }

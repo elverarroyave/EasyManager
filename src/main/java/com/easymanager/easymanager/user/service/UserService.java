@@ -21,5 +21,7 @@ public interface UserService {
 
     User findByEmail(@NotNull String email);
 
+    User findByDocument(@NotNull String numDocument);
+
     void addRoleToUser(@NotNull Long idUser, @NotNull Long idRol);
 }

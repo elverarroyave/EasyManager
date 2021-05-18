@@ -77,6 +77,19 @@ public class UserController {
         return ResponseEntity.ok(UserSaveResponse.fromModel(userFound));
     }
 
+    @GetMapping("/document/{numDocument}")
+    @ApiOperation(value = "Find user by number document")
+    public ResponseEntity<UserSaveResponse> findByDocument(@Valid @PathVariable("numDocument") @NotNull String numDocument){
+
+        logger.debug("Begin find user for numDocument={}", numDocument);
+
+        User userFound = userService.findByDocument(numDocument);
+
+        logger.debug("End findByDocument: userFound = {}", userFound);
+
+        return ResponseEntity.ok(UserSaveResponse.fromModel(userFound));
+    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "Update an user by id")
     public ResponseEntity<UserSaveResponse> update(@PathVariable Long id,

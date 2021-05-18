@@ -92,7 +92,7 @@ public class UserGategayImpl implements UserGateway {
     @Override
     public User findByEmail(@NotNull String email) {
 
-        logger.debug("Begin find find user for: email={}", email);
+        logger.debug("Begin find user for: email={}", email);
 
         User userFound = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundExeption("User not found, please check your email"));
@@ -103,7 +103,22 @@ public class UserGategayImpl implements UserGateway {
     }
 
     @Override
+    public User findByDocument(@NotNull String numDocument) {
+
+        logger.debug("Begin find user by document = {}", numDocument);
+
+        User userFound = userRepository.findByDocument(numDocument)
+                .orElseThrow(() -> new NotFoundExeption("User not found, please check your number document"));
+
+        logger.debug("End find user by document, userFound = {}", userFound);
+
+        return userFound;
+    }
+
+    @Override
     public Optional<User> verifyEmail(@NotNull String email){
         return userRepository.findByEmail(email);
     }
+
+
 }
