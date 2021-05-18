@@ -2,7 +2,7 @@ package com.easymanager.easymanager.sale.io.web.v1;
 
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.SaleService;
-import com.easymanager.easymanager.sale.service.model.Item;
+import com.easymanager.easymanager.sale.service.sale.model.Item;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
 

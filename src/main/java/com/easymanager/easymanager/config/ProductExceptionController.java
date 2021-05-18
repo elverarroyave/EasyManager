@@ -1,6 +1,7 @@
 package com.easymanager.easymanager.config;
 
 import com.easymanager.easymanager.config.exeption.BadRequestExeption;
+import com.easymanager.easymanager.config.exeption.InsufficientStock;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +31,14 @@ public class ProductExceptionController {
     public ResponseEntity<?> notFoundException(Exception e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+
     @ExceptionHandler(BadRequestExeption.class)
     public ResponseEntity<?> badRequestException(Exception e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientStock.class)
+    public ResponseEntity<?> insufficientStock(Exception e){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 }

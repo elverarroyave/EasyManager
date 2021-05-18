@@ -23,9 +23,11 @@ public class ProductSaveRequest {
     private String code;
 
     @NotNull(message = "Es obligatorio ")
+    @Min(value = 1, message = "For register an product, the min baseQuantity value is 1.")
     private int baseQuantity;
 
     @NotNull(message = "Es obligatorio ")
+    @Min(value = 1, message = "For register an product, the min stock value is 1.")
     private int stock;
 
     private String brand;

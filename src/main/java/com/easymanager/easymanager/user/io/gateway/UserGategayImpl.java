@@ -6,6 +6,7 @@ import com.easymanager.easymanager.user.service.UserGateway;
 import com.easymanager.easymanager.user.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -18,9 +19,8 @@ public class UserGategayImpl implements UserGateway {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
     private UserRepository userRepository;
-
-    public UserGategayImpl(UserRepository userRepository){this.userRepository = userRepository;}
 
     @Override
     public User save(@NotNull User userToCreate) {
@@ -100,5 +100,10 @@ public class UserGategayImpl implements UserGateway {
         logger.debug("End find user for email userFound={}", userFound);
 
         return userFound;
+    }
+
+    @Override
+    public Optional<User> verifyEmail(@NotNull String email){
+        return userRepository.findByEmail(email);
     }
 }

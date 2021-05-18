@@ -1,11 +1,13 @@
 package com.easymanager.easymanager.product.io.gateway;
 
+import com.easymanager.easymanager.config.exeption.InsufficientStock;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import com.easymanager.easymanager.product.io.repository.ProductRepository;
 import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.product.service.ProductGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -19,9 +21,8 @@ public class ProductGatewayImpl implements ProductGateway {
 
     private static final String RESOURCE_NOT_FOUND = "Product not found";
 
+    @Autowired
     private ProductRepository productRepository;
-
-    public ProductGatewayImpl(ProductRepository productRepository){this.productRepository = productRepository;}
 
     @Override
     public Product save(@NotNull Product productToCreate) {
@@ -99,5 +100,15 @@ public class ProductGatewayImpl implements ProductGateway {
 
         return productFound;
 
+    }
+
+    @Override
+    public void updateStock(@NotNull int valor, Product product) {
+        int newStock = product.getStock()-valor;
+        if(newStock < 0){
+            throw new InsufficientStock("Insufficient stock in product: " + product.getName() + ", units available are: " + product.getStock());
+        }
+        product.setStock(newStock);
+        productRepository.save(product);
     }
 }

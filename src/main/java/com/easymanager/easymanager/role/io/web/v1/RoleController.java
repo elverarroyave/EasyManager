@@ -79,7 +79,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete an user by id.")
+    @ApiOperation(value = "Delete an role by id.")
     ResponseEntity<MessageResponse> delete(@PathVariable @NotNull Long id){
         logger.debug("Begin delete role");
 

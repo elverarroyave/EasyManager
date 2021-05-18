@@ -37,9 +37,13 @@ public class Sale {
     @JsonBackReference
     private Client client;
 
-    //Relationship wiht SaleDetail
+    //Relationship with SaleDetail
     @OneToMany
     @JoinColumn(name = "SALE_ID")
     private List<SaleDetail> productsDetail = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "User_id")
+    private User user;
 
 }

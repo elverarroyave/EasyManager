@@ -19,4 +19,6 @@ public interface ProductGateway {
     List<Product> findAll();
 
     Product findByCode(@NotNull String code);
+
+    void updateStock(@NotNull int valor, Product product);
 }

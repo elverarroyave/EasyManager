@@ -14,7 +14,7 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService{
 
     @Autowired
-    public RoleGateway roleGateway;
+    private RoleGateway roleGateway;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

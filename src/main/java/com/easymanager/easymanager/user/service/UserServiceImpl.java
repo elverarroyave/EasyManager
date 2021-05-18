@@ -19,12 +19,14 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService{
 
+    @Autowired
     private UserGateway userGateway;
 
     @Autowired
     private RoleGateway roleGateway;
 
-    public UserServiceImpl(UserGateway userGateway){this.userGateway = userGateway;}
+    @Autowired
+    private UserParantrerValidation userParantrerValidation;
 
     /*
     @Autowired
@@ -41,6 +43,8 @@ public class UserServiceImpl implements UserService{
         User userToCreate = UserSaveCmd.toModel(userToCreateCmd);
 
         //userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
+
+        userParantrerValidation.userValidation(userToCreate);
 
         User userCreated = userGateway.save(userToCreate);
 

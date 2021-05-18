@@ -1,7 +1,7 @@
 package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.sale.model.Sale;
-import com.easymanager.easymanager.sale.service.model.Item;
+import com.easymanager.easymanager.sale.service.sale.model.Item;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

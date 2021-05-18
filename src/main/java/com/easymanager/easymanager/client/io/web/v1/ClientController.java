@@ -22,7 +22,7 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 
 @RestController
 @RequestMapping("/api/v1/clients")
-@Api(tags = {"Clients"}, value = "Client")
+@Api(tags = {"Clients"}, value = "Clients")
 public class ClientController {
 
     @Autowired
@@ -58,7 +58,7 @@ public class ClientController {
         return ResponseEntity.ok(ClientSaveResponse.fromModel(clientFound));
     }
 
-    @PostMapping("/findByDocument/{numDocument}")
+    @PostMapping("/document/{numDocument}")
     @ApiOperation(value = "Find client by number document.")
     public ResponseEntity<ClientSaveResponse> findByNumDocument(@Valid @PathVariable("numDocument") @NotNull String numDocument){
         Client clientFound = clientService.findByNumDocument(numDocument);

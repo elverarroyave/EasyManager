@@ -1,9 +1,11 @@
 package com.easymanager.easymanager.product.service;
 
+import com.easymanager.easymanager.config.exeption.BadRequestExeption;
 import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.constraints.NotNull;
@@ -13,9 +15,8 @@ import java.util.List;
 @Transactional
 public class ProductServiceImpl implements ProductService{
 
+    @Autowired
     private ProductGateway productGateway;
-
-    public ProductServiceImpl(ProductGateway productGateway){this.productGateway = productGateway;}
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -25,6 +26,10 @@ public class ProductServiceImpl implements ProductService{
         logger.debug("Begin create productToCreateCmd = {}", productToCreateCmd);
 
         Product productToCreate = ProductSaveCmd.toModel(productToCreateCmd);
+
+        if(!(productGateway.findByCode(productToCreate.getCode())==null)){
+            throw new BadRequestExeption("This code is already used in another product.");
+        }
 
         Product productCreated = productGateway.save(productToCreate);
 
