@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -101,6 +102,12 @@ public class ProductGatewayImpl implements ProductGateway {
         return productFound;
 
     }
+
+    @Override
+    public Optional<Product> verifyCode(@NotNull String code) {
+        return productRepository.findByCode(code);
+    }
+
 
     @Override
     public void updateStock(@NotNull int valor, Product product) {

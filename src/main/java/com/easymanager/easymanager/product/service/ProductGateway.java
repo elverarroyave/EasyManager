@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductGateway {
     Product save(@NotNull Product productToCreate);
@@ -19,6 +20,8 @@ public interface ProductGateway {
     List<Product> findAll();
 
     Product findByCode(@NotNull String code);
+
+    Optional<Product> verifyCode(@NotNull String code);
 
     void updateStock(@NotNull int valor, Product product);
 }

@@ -18,6 +18,9 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductGateway productGateway;
 
+    @Autowired
+    private ProductParameterValidation productParameterValidation;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -27,9 +30,8 @@ public class ProductServiceImpl implements ProductService{
 
         Product productToCreate = ProductSaveCmd.toModel(productToCreateCmd);
 
-        if(!(productGateway.findByCode(productToCreate.getCode())==null)){
-            throw new BadRequestExeption("This code is already used in another product.");
-        }
+        //Validacion de codigo unico de un producto
+        productParameterValidation.codeValidation(productToCreate);
 
         Product productCreated = productGateway.save(productToCreate);
 
