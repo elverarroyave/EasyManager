@@ -14,10 +14,15 @@ public class ClientServiceImpl implements ClientService{
     @Autowired
     private ClientGateway clientGateway;
 
+    @Autowired
+    private ClientParameterValidartion clientParameterValidartion;
+
     @Override
     public Client save(@NotNull ClientSaveCmd clientToCreate) {
 
         Client clientToSave = ClientSaveCmd.toModel(clientToCreate);
+
+        clientParameterValidartion.parametersValidation(clientToSave);
 
         return clientGateway.save(clientToSave);
     }
@@ -44,6 +49,8 @@ public class ClientServiceImpl implements ClientService{
                 .email(clientToUpdateCmd.getEmail())
                 .address(clientToUpdateCmd.getAddress())
                 .build();
+
+        clientParameterValidartion.parametersValidation(clientToUpdate);
 
         return clientGateway.save(clientToUpdate);
     }

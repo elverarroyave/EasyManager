@@ -71,6 +71,8 @@ public class ProductServiceImpl implements ProductService{
                 .category(productToUpdateCmd.getCategory())
                 .build();
 
+        productParameterValidation.codeValidation(productToUpdate);
+
         Product productUpdated = productGateway.update(productToUpdate);
 
         logger.debug("End update userUpdated = {}", productUpdated);

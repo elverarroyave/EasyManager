@@ -4,6 +4,7 @@ import com.easymanager.easymanager.client.model.Client;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientGateway {
 
@@ -18,5 +19,9 @@ public interface ClientGateway {
     void deleteById(@NotNull Long id);
 
     Client findByDocument(@NotNull String numDocument);
+
+    Optional<Client> verifyEmail(String email);
+
+    Optional<Client> verifyDocument(String document);
 
 }

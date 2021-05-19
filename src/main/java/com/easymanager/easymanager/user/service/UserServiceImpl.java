@@ -100,6 +100,8 @@ public class UserServiceImpl implements UserService{
                 .rolesOfUser(userInDataBase.getRolesOfUser())
                 .build();
 
+        userParantrerValidation.userValidation(userToUpdate);
+
         User userUpdated = userGateway.update(userToUpdate);
 
         logger.debug("End update user user");

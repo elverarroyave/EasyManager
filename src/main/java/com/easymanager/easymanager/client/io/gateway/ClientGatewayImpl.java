@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ClientGatewayImpl implements ClientGateway {
@@ -65,5 +66,15 @@ public class ClientGatewayImpl implements ClientGateway {
                 .orElseThrow(() -> new NotFoundExeption("Number document not found, please check."));
 
         return clientFound;
+    }
+
+    @Override
+    public Optional<Client> verifyEmail(String email) {
+        return clientReposiroty.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Client> verifyDocument(String document) {
+        return clientReposiroty.findByDocument(document);
     }
 }
