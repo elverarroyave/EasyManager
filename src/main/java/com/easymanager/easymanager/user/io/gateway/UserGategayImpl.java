@@ -120,5 +120,10 @@ public class UserGategayImpl implements UserGateway {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public Optional<User> verifyDocument(@NotNull String document){
+        return userRepository.findByDocument(document);
+    }
+
 
 }

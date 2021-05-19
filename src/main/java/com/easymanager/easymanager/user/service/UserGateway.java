@@ -22,5 +22,7 @@ public interface UserGateway {
 
     Optional<User> verifyEmail(@NotNull String email);
 
+    Optional<User> verifyDocument(@NotNull String document);
+
     User findByDocument(@NotNull String numDocument);
 }

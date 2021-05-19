@@ -21,7 +21,10 @@ public class UserParantrerValidation{
             throw new BadRequestExeption("This emil is already used by another user.");
         }
 
-
+        //Unique document user validation
+        if(userGateway.verifyDocument(user.getNumDocument()).isPresent()){
+            throw new BadRequestExeption("This number document is already used by another user");
+        }
 
     }
 
