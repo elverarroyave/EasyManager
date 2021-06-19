@@ -8,6 +8,8 @@ import com.easymanager.easymanager.product.service.ProductGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -92,6 +94,12 @@ public class ProductGatewayImpl implements ProductGateway {
 
         return productsFound;
     }
+
+    @Override
+    public Page<Product> findAllByPages(@NotNull Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
 
     @Override
     public Product findByCode(@NotNull String code) {

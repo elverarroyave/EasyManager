@@ -19,6 +19,8 @@ public interface ProductGateway {
 
     List<Product> findAll();
 
+    Page<Product> findAllByPages(@NotNull Pageable pageable);
+
     Product findByCode(@NotNull String code);
 
     Optional<Product> verifyCode(@NotNull String code);

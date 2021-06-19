@@ -3,6 +3,8 @@ package com.easymanager.easymanager.product.service;
 import com.easymanager.easymanager.product.model.Product;
 
 import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -20,5 +22,7 @@ public interface ProductService {
     Product findById(@NotNull Long id);
 
     Product findByCode(@NotNull String code);
+
+    Page<Product> findAllByPages(@NotNull Pageable pageable);
 
 }

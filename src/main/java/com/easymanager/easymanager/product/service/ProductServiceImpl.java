@@ -6,6 +6,8 @@ import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.constraints.NotNull;
@@ -71,7 +73,8 @@ public class ProductServiceImpl implements ProductService{
                 .category(productToUpdateCmd.getCategory())
                 .build();
 
-        productParameterValidation.codeValidation(productToUpdate);
+        if(!productInDatabase.getCode().equalsIgnoreCase(productToUpdateCmd.getCode()))
+            productParameterValidation.codeValidation(productToUpdate);
 
         Product productUpdated = productGateway.update(productToUpdate);
 
@@ -109,6 +112,11 @@ public class ProductServiceImpl implements ProductService{
         Product productFound = productGateway.findByCode(code);
 
         return productFound;
+    }
+
+    @Override
+    public Page<Product> findAllByPages(@NotNull Pageable pageable) {
+        return productGateway.findAllByPages(pageable);
     }
 
 }

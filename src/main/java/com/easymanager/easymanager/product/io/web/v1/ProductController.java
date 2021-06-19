@@ -11,6 +11,9 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +47,26 @@ public class ProductController {
 
         return productsFound;
     }
+
+    @GetMapping("/productsByPages")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @ApiOperation(value = "Show all products by pages.")
+    public ResponseEntity<Page<Product>> findAllByPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String order,
+            @RequestParam(defaultValue = "false") boolean asc
+    ){
+        Page<Product> products = productService.findAllByPages(
+                PageRequest.of(page,size, Sort.by(order).descending())
+        );
+        if(!asc)
+            products = productService.findAllByPages(
+                    PageRequest.of(page,size, Sort.by(order).descending())
+            );
+        return new ResponseEntity<Page<Product>>(products, HttpStatus.OK);
+    }
+
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Find an Product for id.")
