@@ -5,6 +5,8 @@ import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.ClientGateway;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -41,6 +43,11 @@ public class ClientGatewayImpl implements ClientGateway {
     @Override
     public List<Client> findAll() {
         return clientReposiroty.findAll();
+    }
+
+    @Override
+    public Page<Client> findAllByPages(@NotNull Pageable pageable) {
+        return clientReposiroty.findAll(pageable);
     }
 
     @Override

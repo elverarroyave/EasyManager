@@ -4,6 +4,7 @@ import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.sale.model.Sale;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,9 +12,13 @@ import java.util.List;
 
 @Data
 @Builder
-public class ClientSaveResponse {
+public class ClientSaveResponse extends RepresentationModel<ClientSaveResponse> {
 
-    private String fullName;
+    private Long id;
+
+    private String name;
+
+    private String lastName;
 
     private String numDocument;
 
@@ -31,7 +36,9 @@ public class ClientSaveResponse {
 
     public static ClientSaveResponse fromModel(Client clientToResponse){
         return ClientSaveResponse.builder()
-                .fullName(clientToResponse.getFullName())
+                .id(clientToResponse.getId())
+                .name(clientToResponse.getName())
+                .lastName(clientToResponse.getLastName())
                 .numDocument(clientToResponse.getNumDocument())
                 .numPhone(clientToResponse.getNumPhone())
                 .email(clientToResponse.getEmail())

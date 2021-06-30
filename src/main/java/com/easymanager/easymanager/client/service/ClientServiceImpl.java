@@ -3,6 +3,8 @@ package com.easymanager.easymanager.client.service;
 import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.model.ClientSaveCmd;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -33,6 +35,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public Page<Client> findAllByPages(@NotNull Pageable pageable) {
+        return clientGateway.findAllByPages(pageable);
+    }
+
+    @Override
     public Client findById(@NotNull Long id) {
         return clientGateway.findById(id);
     }
@@ -43,16 +50,19 @@ public class ClientServiceImpl implements ClientService{
         Client clientInDataBase = clientGateway.findById(id);
 
         Client clientToUpdate = clientInDataBase.toBuilder()
-                .fullName(clientToUpdateCmd.getFullName())
+                .name(clientToUpdateCmd.getName())
+                .lastName(clientToUpdateCmd.getLastName())
                 .numDocument(clientToUpdateCmd.getNumDocument())
                 .numPhone(clientToUpdateCmd.getNumPhone())
                 .email(clientToUpdateCmd.getEmail())
                 .address(clientToUpdateCmd.getAddress())
                 .build();
 
-        clientParameterValidartion.parametersValidation(clientToUpdate);
+        if(clientInDataBase.getId() != id) {
+            clientParameterValidartion.parametersValidation(clientToUpdate);
+        }
 
-        return clientGateway.save(clientToUpdate);
+        return clientGateway.update(clientToUpdate);
     }
 
     @Override

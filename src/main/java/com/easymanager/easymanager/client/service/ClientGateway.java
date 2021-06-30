@@ -1,6 +1,8 @@
 package com.easymanager.easymanager.client.service;
 
 import com.easymanager.easymanager.client.model.Client;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,6 +15,8 @@ public interface ClientGateway {
     Client findById(@NotNull Long id);
 
     List<Client> findAll();
+
+    Page<Client> findAllByPages(@NotNull Pageable pageable);
 
     Client update(@NotNull Client clientToUpdate);
 

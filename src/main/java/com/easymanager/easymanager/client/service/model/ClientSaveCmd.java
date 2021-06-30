@@ -15,7 +15,11 @@ public class ClientSaveCmd {
 
     @NotNull(message = "Your name is required")
     @NotBlank(message = "Your name cannot be blank")
-    private String fullName;
+    private String name;
+
+    @NotNull(message = "Your lastName is required")
+    @NotBlank(message = "Your lastName cannot be blank")
+    private String lastName;
 
     @NotNull(message = "Your number document is required")
     @NotBlank(message = "Your number document cannot be blank")
@@ -37,7 +41,8 @@ public class ClientSaveCmd {
 
     public static Client toModel(ClientSaveCmd clientToSaveCmd){
         return Client.builder()
-                .fullName(clientToSaveCmd.getFullName())
+                .name(clientToSaveCmd.getName())
+                .lastName(clientToSaveCmd.getLastName())
                 .numDocument(clientToSaveCmd.getNumDocument())
                 .numPhone(clientToSaveCmd.getNumPhone())
                 .email(clientToSaveCmd.getEmail())

@@ -8,7 +8,9 @@ import lombok.Data;
 @Builder
 public class ClientSaveRequest {
 
-    private String fullName;
+    private String name;
+
+    private String lastName;
 
     private String numDocument;
 
@@ -20,7 +22,8 @@ public class ClientSaveRequest {
 
     public static ClientSaveCmd toModel(ClientSaveRequest clientToSaveRequest){
         return ClientSaveCmd.builder()
-                .fullName(clientToSaveRequest.getFullName())
+                .name(clientToSaveRequest.getName())
+                .lastName(clientToSaveRequest.getLastName())
                 .numDocument(clientToSaveRequest.getNumDocument())
                 .numPhone(clientToSaveRequest.getNumPhone())
                 .email(clientToSaveRequest.getEmail())

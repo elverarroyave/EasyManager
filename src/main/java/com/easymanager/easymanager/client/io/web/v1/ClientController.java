@@ -9,6 +9,11 @@ import com.easymanager.easymanager.config.MessageResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +21,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/v1/clients")
 @Api(tags = {"Clients"}, value = "Clients")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClientController {
 
     @Autowired
@@ -51,18 +59,65 @@ public class ClientController {
         return ClientSaveResponse.fromModelList(clientsFound);
     }
 
-    @PostMapping("/{id}")
-    @ApiOperation(value = "Find client by id.")
-    public ResponseEntity<ClientSaveResponse> findById(@Valid @PathVariable("id") @NotNull Long id){
-        Client clientFound = clientService.findById(id);
-        return ResponseEntity.ok(ClientSaveResponse.fromModel(clientFound));
+    @GetMapping("/clientsByPages")
+    @ApiOperation(value = "Show all clients by pages.")
+    public ResponseEntity<Page<Client>> findAllByPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String order,
+            @RequestParam(defaultValue = "false") boolean asc
+    ){
+        Page<Client> clientsFound = clientService.findAllByPages(
+                PageRequest.of(page,size, Sort.by(order).descending())
+        );
+        if (!asc)
+            clientsFound = clientService.findAllByPages(
+                    PageRequest.of(page,size, Sort.by(order).ascending())
+            );
+
+        clientsFound.forEach(client -> {
+            client.add(linkTo(methodOn(ClientController.class).findById(client.getId())).withSelfRel());
+        });
+
+        return new ResponseEntity<Page<Client>>(clientsFound, HttpStatus.OK);
     }
 
-    @PostMapping("/document/{numDocument}")
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Find client by id.")
+    public ResponseEntity<CollectionModel<ClientSaveResponse>> findById(@Valid @PathVariable("id") @NotNull Long id){
+        Client clientFound = clientService.findById(id);
+
+        ClientSaveResponse clientSaveResponse = ClientSaveResponse.fromModel(clientFound);
+
+        clientSaveResponse.add(linkTo(methodOn(ClientController.class).findById(clientFound.getId())).withSelfRel());
+
+        Link allClientLink = linkTo(methodOn(ClientController.class).findAll()).withSelfRel();
+
+        List<ClientSaveResponse> clients = new ArrayList<>();
+
+        clients.add(clientSaveResponse);
+
+        return ResponseEntity.ok(CollectionModel.of(clients, allClientLink));
+    }
+
+    @GetMapping("/document/{numDocument}")
     @ApiOperation(value = "Find client by number document.")
-    public ResponseEntity<ClientSaveResponse> findByNumDocument(@Valid @PathVariable("numDocument") @NotNull String numDocument){
+    public ResponseEntity<CollectionModel<ClientSaveResponse>> findByNumDocument(@Valid @PathVariable("numDocument") @NotNull String numDocument){
         Client clientFound = clientService.findByNumDocument(numDocument);
-        return ResponseEntity.ok(ClientSaveResponse.fromModel(clientFound));
+
+        ClientSaveResponse clientSaveResponse = ClientSaveResponse.fromModel(clientFound);
+
+        clientSaveResponse.add(linkTo(methodOn(ClientController.class)
+                .findByNumDocument(clientSaveResponse.getNumDocument())).withSelfRel());
+
+        Link allClientLink = linkTo(methodOn(ClientController.class).findAll()).withSelfRel();
+
+        List<ClientSaveResponse> clients = new ArrayList<>();
+
+        clients.add(clientSaveResponse);
+
+        return ResponseEntity.ok(CollectionModel.of(clients, allClientLink));
     }
 
     @PutMapping("/{id}")
