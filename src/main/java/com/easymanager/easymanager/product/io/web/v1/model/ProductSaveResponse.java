@@ -2,6 +2,7 @@ package com.easymanager.easymanager.product.io.web.v1.model;
 
 import com.easymanager.easymanager.product.model.Product;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductSaveResponse {
+public class ProductSaveResponse extends RepresentationModel<Product> {
 
     private Long id;
 

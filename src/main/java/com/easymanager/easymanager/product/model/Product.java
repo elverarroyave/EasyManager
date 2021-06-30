@@ -1,6 +1,8 @@
 package com.easymanager.easymanager.product.model;
 
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity(name = "PRODUCT")
 @Table(name = "PRODUCT")
-public class Product {
+public class Product extends RepresentationModel<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

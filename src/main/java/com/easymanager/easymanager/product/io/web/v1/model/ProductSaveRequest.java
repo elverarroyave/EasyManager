@@ -36,11 +36,11 @@ public class ProductSaveRequest {
     private String description;
 
     @NotNull(message = "Es obligatorio ")
-    @Min(value = 0, message = "El precio mínimo es 0.")
+    @Min(value = 0, message = "El precio mínimo para el precio al costo es 0.")
     private double privatePrice;
 
     @NotNull(message = "Es obligatorio ")
-    @Min(value = 0, message = "El precio mínimo es 0.")
+    @Min(value = 0, message = "El precio mínimo para el precio al publico es 0.")
     private double publicPrice;
 
     private String category;
