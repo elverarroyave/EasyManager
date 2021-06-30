@@ -61,10 +61,16 @@ public class SaleServiceImpl implements SaleService{
 
         // Add items to the list products
         for (Item item : items) {
-            SaleDetail productDetail = new SaleDetail();
             Product productInDataBase = productGateway.findByCode(item.getCode());
-            productDetail.setProduct(productInDataBase);
-            productDetail.setAmount(item.getQuantity());
+            //productDetail.setProduct(productInDataBase);
+            SaleDetail productDetail = new SaleDetail(
+                    item.getQuantity(),
+                    productInDataBase.getCode(),
+                    productInDataBase.getName(),
+                    productInDataBase.getPublicPrice(),
+                    item.getQuantity()*productInDataBase.getPublicPrice()
+            );
+
             productsDetail.add(productDetail);
             productGateway.updateStock(item.getQuantity(),productInDataBase);
         }

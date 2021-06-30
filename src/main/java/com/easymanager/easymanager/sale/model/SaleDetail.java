@@ -16,21 +16,22 @@ public class SaleDetail {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //OneToOne unidirectional with Product.
-    @OneToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
-
     private int amount;
 
-    public double getPrice(){
-        return (product.getPublicPrice()*amount);
-    }
+    private String codeProduct;
 
-    public SaleDetail(Long id, Product product, int amount) {
-        this.id = id;
-        this.product = product;
+    private String nameProduct;
+
+    private double publicPriceProduct;
+
+    private double totalSale;
+
+    public SaleDetail(int amount, String codeProduct, String nameProduct, double publicPriceProduct, double totalSale) {
         this.amount = amount;
+        this.codeProduct = codeProduct;
+        this.nameProduct = nameProduct;
+        this.publicPriceProduct = publicPriceProduct;
+        this.totalSale = totalSale;
     }
 
     public SaleDetail(){}
