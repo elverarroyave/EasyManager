@@ -15,18 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ProductExceptionController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductExceptionController.class);
-
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<MessageResponse> handleMethodArgumentNotValidMethod(MethodArgumentNotValidException ex){
-        LOGGER.error("EL ATRIBUTO \"" + ex.getBindingResult().getFieldError().getField().toUpperCase() + "\" " +
-                ex.getBindingResult().getFieldError().getDefaultMessage().toUpperCase());
-
-        return new ResponseEntity<>(new MessageResponse(
-                "EL ATRIBUTO \"" + ex.getBindingResult().getFieldError().getField().toUpperCase() + "\" " +
-                        ex.getBindingResult().getFieldError().getDefaultMessage().toUpperCase()),
-                HttpStatus.BAD_REQUEST);
-    }
-
+    
     @ExceptionHandler(NotFoundExeption.class)
     public ResponseEntity<?> notFoundException(Exception e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
