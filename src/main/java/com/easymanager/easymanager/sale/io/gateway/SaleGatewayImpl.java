@@ -71,4 +71,13 @@ public class SaleGatewayImpl implements SaleGateway {
 
         return salesFound;
     }
+
+
+    @Override
+    public List<Sale> findByDateRange(LocalDateTime initDate, LocalDateTime finalDate) {
+
+        List<Sale> salesFoud = saleRepository.findByDateRange(initDate, finalDate);
+
+        return salesFoud;
+    }
 }

@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -40,7 +42,7 @@ public class SaleServiceImpl implements SaleService{
     private RoleGateway roleGateway;
     
     @Override
-    public Sale create(@NotNull String idClient, @NotNull List<Item> items) {
+    public Sale create(@NotNull String numDocument, @NotNull List<Item> items) {
 
 
         // Usuario que realiza la venta
@@ -52,7 +54,7 @@ public class SaleServiceImpl implements SaleService{
         }
 
         // Search client to will sale
-        Client clientToSale =  clientGateway.findByDocument(idClient);
+        Client clientToSale =  clientGateway.findByDocument(numDocument);
 
         // We create an list products details
         List<SaleDetail> productsDetail = new ArrayList<>();
@@ -60,7 +62,7 @@ public class SaleServiceImpl implements SaleService{
         // Add items to the list products
         for (Item item : items) {
             SaleDetail productDetail = new SaleDetail();
-            Product productInDataBase = productGateway.findById(item.getProductId());
+            Product productInDataBase = productGateway.findByCode(item.getCode());
             productDetail.setProduct(productInDataBase);
             productDetail.setAmount(item.getQuantity());
             productsDetail.add(productDetail);
@@ -88,5 +90,25 @@ public class SaleServiceImpl implements SaleService{
 
 
 
+    public List<Sale> findByDateRange(@NotNull String initDate, String finalDate){
+
+        String[] date1 = initDate.split("-");
+
+        String[] date2 = finalDate.split("-");
+
+        LocalDateTime localDateTime1 = LocalDateTime.of(
+                Integer.parseInt(date1[0]),
+                Integer.parseInt(date1[1]),
+                Integer.parseInt(date1[2]),
+                00,00);
+
+        LocalDateTime localDateTime2 = LocalDateTime.of(
+                Integer.parseInt(date2[0]),
+                Integer.parseInt(date2[1]),
+                Integer.parseInt(date2[2]),
+                23,59,59);
+
+        return saleGateway.findByDateRange(localDateTime1,localDateTime2);
+    }
 
 }
