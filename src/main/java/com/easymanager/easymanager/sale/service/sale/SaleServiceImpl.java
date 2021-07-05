@@ -75,9 +75,6 @@ public class SaleServiceImpl implements SaleService{
             productGateway.updateStock(item.getQuantity(),productInDataBase);
         }
 
-        // Persist productsDetails
-        saleDetailsGateway.save(productsDetail);
-
         // Create void sale
         Sale saleCreate = new Sale();
 
@@ -91,10 +88,12 @@ public class SaleServiceImpl implements SaleService{
         // Persist Sale
         Sale saleCreated = saleGateway.save(saleCreate);
 
+        // Persist productsDetails
+        productsDetail.forEach(productDetail->productDetail.setSale(saleCreated));
+        saleDetailsGateway.save(productsDetail);
+
         return saleCreated;
     }
-
-
 
     public List<Sale> findByDateRange(@NotNull String initDate, String finalDate){
 
@@ -115,6 +114,31 @@ public class SaleServiceImpl implements SaleService{
                 23,59,59);
 
         return saleGateway.findByDateRange(localDateTime1,localDateTime2);
+    }
+
+    @Override
+    public Sale findById(@NotNull long id) {
+        Sale saleFound = saleGateway.findById(id);
+        return saleFound;
+    }
+
+    @Override
+    public void deleteById(@NotNull Long id) {
+
+        Sale saleToDelete = saleGateway.findById(id);
+
+        saleDetailsGateway.deleteSalesDetails(saleToDelete);
+        saleGateway.deleteById(id);
+    }
+
+    @Override
+    public List<Sale> findByClientId(@NotNull Long id) {
+
+        Client clientFound = clientGateway.findById(id);
+
+        List<Sale> salesFound = saleGateway.findByClientId(clientFound);
+
+        return salesFound;
     }
 
 }

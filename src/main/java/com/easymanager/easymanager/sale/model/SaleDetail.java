@@ -8,7 +8,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name = "SALE_DETAIL")
 @Table
 public class SaleDetail {
 
@@ -25,6 +25,13 @@ public class SaleDetail {
     private double publicPriceProduct;
 
     private double totalSale;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name="fk_sale")
+    @JsonIgnore
+    private Sale sale;
 
     public SaleDetail(int amount, String codeProduct, String nameProduct, double publicPriceProduct, double totalSale) {
         this.amount = amount;

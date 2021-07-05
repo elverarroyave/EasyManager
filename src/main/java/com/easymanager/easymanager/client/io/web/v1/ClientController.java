@@ -67,13 +67,17 @@ public class ClientController {
             @RequestParam(defaultValue = "id") String order,
             @RequestParam(defaultValue = "false") boolean asc
     ){
-        Page<Client> clientsFound = clientService.findAllByPages(
-                PageRequest.of(page,size, Sort.by(order).descending())
-        );
-        if (!asc)
+        Page<Client> clientsFound = null;
+
+        if (!asc){
             clientsFound = clientService.findAllByPages(
                     PageRequest.of(page,size, Sort.by(order).ascending())
             );
+        }else{
+            clientsFound = clientService.findAllByPages(
+                    PageRequest.of(page,size, Sort.by(order).descending())
+            );
+        }
 
         clientsFound.forEach(client -> {
             client.add(linkTo(methodOn(ClientController.class).findById(client.getId())).withSelfRel());

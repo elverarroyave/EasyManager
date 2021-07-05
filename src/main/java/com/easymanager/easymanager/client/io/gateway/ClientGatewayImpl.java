@@ -33,10 +33,8 @@ public class ClientGatewayImpl implements ClientGateway {
 
     @Override
     public Client findById(@NotNull Long id) {
-
         Client clienFound = clientReposiroty.findById(id)
                 .orElseThrow(() -> new NotFoundExeption("Id not found, please check it id"));
-
         return clienFound;
     }
 

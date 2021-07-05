@@ -28,8 +28,6 @@ public class ClientSaveResponse extends RepresentationModel<ClientSaveResponse> 
 
     private String address;
 
-    private List<Sale> shopping;
-
     private LocalDateTime createDate;
 
     private LocalDateTime updateDate;
@@ -43,7 +41,6 @@ public class ClientSaveResponse extends RepresentationModel<ClientSaveResponse> 
                 .numPhone(clientToResponse.getNumPhone())
                 .email(clientToResponse.getEmail())
                 .address(clientToResponse.getAddress())
-                .shopping(clientToResponse.getShopping())
                 .createDate(clientToResponse.getCreateDate())
                 .updateDate(clientToResponse.getUpdateDate())
                 .build();

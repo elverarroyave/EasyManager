@@ -31,19 +31,18 @@ public class Sale {
 
     //Ralationship with Client
     @ManyToOne(
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "client_id")
-    @JsonBackReference
+    @JoinColumn(name = "CLIENT_ID")
     private Client client;
 
     //Relationship with SaleDetail
-    @OneToMany
-    @JoinColumn(name = "SALE_ID")
+    @OneToMany(mappedBy = "sale")
     private List<SaleDetail> productsDetail = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "User_id")
+    @JoinColumn(name = "USER_ID")
+    @JsonIgnore()
     private User user;
 
 }

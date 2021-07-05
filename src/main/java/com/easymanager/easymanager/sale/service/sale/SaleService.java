@@ -1,5 +1,6 @@
 package com.easymanager.easymanager.sale.service.sale;
 
+import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.model.Item;
 
@@ -12,4 +13,9 @@ public interface SaleService {
 
     List<Sale> findByDateRange(@NotNull  String initDate, String finalDate);
 
+    Sale findById(@NotNull long id);
+
+    void deleteById(@NotNull Long id);
+
+    List<Sale> findByClientId(@NotNull Long id);
 }

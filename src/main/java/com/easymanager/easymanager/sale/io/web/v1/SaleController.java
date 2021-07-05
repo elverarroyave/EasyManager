@@ -1,5 +1,7 @@
 package com.easymanager.easymanager.sale.io.web.v1;
 
+import com.easymanager.easymanager.config.MessageResponse;
+import com.easymanager.easymanager.sale.io.web.v1.model.SaleResponse;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.SaleService;
 import com.easymanager.easymanager.sale.service.sale.model.Item;
@@ -8,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,11 +45,31 @@ public class SaleController {
         return ResponseEntity.created(location).build();
     }
 
-
     @GetMapping
     @ApiOperation(value = "find sales by date range")
-    public ResponseEntity<List<Sale>> findByDateRange(String initDate,String finalDate){
+    public ResponseEntity<List<SaleResponse>> findByDateRange(@NotNull String initDate, @NotNull String finalDate){
         List<Sale> salesFound = saleService.findByDateRange(initDate, finalDate);
-        return ResponseEntity.ok(salesFound);
+        return ResponseEntity.ok(SaleResponse.fromModelList(salesFound));
+    }
+
+    @GetMapping("/findByClient/{id}")
+    @ApiOperation(value = "Find sales of client by id")
+    public ResponseEntity<List<SaleResponse>> findSalesOfClient(@NotNull @PathVariable Long id){
+        List <Sale> saleFound = saleService.findByClientId(id);
+        return ResponseEntity.ok(SaleResponse.fromModelList(saleFound));
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value="Find sale by id")
+    public ResponseEntity<SaleResponse> findById(@NotNull @PathVariable Long id){
+        Sale saleFound = saleService.findById(id);
+        return ResponseEntity.ok(SaleResponse.fromModel(saleFound));
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete a sale by id")
+    public ResponseEntity<MessageResponse> deleteById(@PathVariable Long id){
+        saleService.deleteById(id);
+        return new ResponseEntity<>( new MessageResponse("Sale deleted successfully"), HttpStatus.NO_CONTENT);
     }
 }

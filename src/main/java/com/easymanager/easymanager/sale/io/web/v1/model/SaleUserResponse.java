@@ -1,0 +1,16 @@
+package com.easymanager.easymanager.sale.io.web.v1.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class SaleUserResponse {
+
+    private Long id;
+
+    private String name;
+
+    private String document;
+
+}

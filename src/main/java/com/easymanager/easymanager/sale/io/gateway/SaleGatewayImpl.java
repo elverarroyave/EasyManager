@@ -1,10 +1,12 @@
 package com.easymanager.easymanager.sale.io.gateway;
 
+import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import com.easymanager.easymanager.sale.io.repository.SaleRepository;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.SaleGateway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -65,19 +67,14 @@ public class SaleGatewayImpl implements SaleGateway {
     }
 
     @Override
-    public List<Sale> findByClientId(Long id) {
-
-        List<Sale> salesFound = saleRepository.findByClientId(id);
-
+    public List<Sale> findByClientId(Client client) {
+        List<Sale> salesFound = saleRepository.findByClientId(client);
         return salesFound;
     }
 
-
     @Override
     public List<Sale> findByDateRange(LocalDateTime initDate, LocalDateTime finalDate) {
-
         List<Sale> salesFoud = saleRepository.findByDateRange(initDate, finalDate);
-
         return salesFoud;
     }
 }
