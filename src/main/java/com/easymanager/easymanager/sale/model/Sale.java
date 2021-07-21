@@ -25,10 +25,6 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDateTime createDate;
-
-    private LocalDateTime updateDate;
-
     //Ralationship with Client
     @ManyToOne(
             fetch = FetchType.LAZY
@@ -40,9 +36,14 @@ public class Sale {
     @OneToMany(mappedBy = "sale")
     private List<SaleDetail> productsDetail = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(
+            fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "USER_ID")
-    @JsonIgnore()
     private User user;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
 
 }

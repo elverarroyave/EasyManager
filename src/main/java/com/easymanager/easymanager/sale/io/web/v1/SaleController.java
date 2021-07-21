@@ -47,7 +47,7 @@ public class SaleController {
 
     @GetMapping
     @ApiOperation(value = "find sales by date range")
-    public ResponseEntity<List<SaleResponse>> findByDateRange(@NotNull String initDate, @NotNull String finalDate){
+    public ResponseEntity<List<SaleResponse>> findByDateRange(@RequestParam String initDate,@RequestParam String finalDate){
         List<Sale> salesFound = saleService.findByDateRange(initDate, finalDate);
         return ResponseEntity.ok(SaleResponse.fromModelList(salesFound));
     }

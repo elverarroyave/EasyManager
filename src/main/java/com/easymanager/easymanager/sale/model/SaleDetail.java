@@ -29,7 +29,7 @@ public class SaleDetail {
     @ManyToOne(
             fetch = FetchType.LAZY
     )
-    @JoinColumn(name="fk_sale")
+    @JoinColumn(name="FK_SALE")
     @JsonIgnore
     private Sale sale;
 
