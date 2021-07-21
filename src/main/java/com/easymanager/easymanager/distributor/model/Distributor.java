@@ -1,6 +1,7 @@
 package com.easymanager.easymanager.distributor.model;
 
 import com.easymanager.easymanager.order.model.Orden;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -33,10 +34,9 @@ public class Distributor {
     private String address;
 
     @OneToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "distributor"
+            fetch = FetchType.LAZY, mappedBy = "distributor"
     )
-    @JsonManagedReference
+    @JsonIgnore
     private List<Orden> ordens = new ArrayList<>();
 
     private LocalDateTime createDate;

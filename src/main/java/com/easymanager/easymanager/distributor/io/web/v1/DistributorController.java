@@ -54,7 +54,7 @@ public class DistributorController {
 
     @GetMapping("/nit/{nit}")
     @ApiOperation(value = "Find distributor by nit")
-    public ResponseEntity<DistributorSaveResponse> findByNit(@NotNull String nit){
+    public ResponseEntity<DistributorSaveResponse> findByNit(@NotNull @RequestParam String nit){
 
         Distributor distributorFound = distributorService.findByNit(nit);
 
@@ -84,7 +84,7 @@ public class DistributorController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete distributor")
-    public ResponseEntity<MessageResponse> delete(@NotNull Long id){
+    public ResponseEntity<MessageResponse> delete(@PathVariable("id") @NotNull Long id){
 
         distributorService.deleteById(id);
 

@@ -1,9 +1,7 @@
 package com.easymanager.easymanager.client.model;
 
 import com.easymanager.easymanager.sale.model.Sale;
-import com.easymanager.easymanager.sale.model.SaleDetail;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
