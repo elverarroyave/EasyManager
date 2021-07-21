@@ -4,6 +4,7 @@ package com.easymanager.easymanager.order.model;
 import com.easymanager.easymanager.distributor.model.Distributor;
 import com.easymanager.easymanager.user.model.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,26 +24,28 @@ public class Orden {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nameDistributor;
+    private int state;
 
-    @OneToOne
-    @JoinColumn(name = "USER_ID")
+    @OneToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "FK_USER")
     private User user;
 
     @ManyToOne(
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "distributor_id")
-    @JsonBackReference
+    @JoinColumn(name = "DISTRIBUTOR_ID")
     private Distributor distributor;
 
-    @OneToMany
-    @JoinColumn(name = "ORDER_ID")
+    @OneToMany(
+            mappedBy = "orden"
+    )
     private List<OrderDetail> productsDetails = new ArrayList<>();
 
     private LocalDateTime createDate;
 
     private LocalDateTime updateDate;
 
-    private Boolean state;
+
 }

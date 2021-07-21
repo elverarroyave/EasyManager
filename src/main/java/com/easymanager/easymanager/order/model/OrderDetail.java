@@ -1,6 +1,5 @@
 package com.easymanager.easymanager.order.model;
-
-import com.easymanager.easymanager.product.model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +15,32 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //OneToOne unidirectional with Product.
-    @OneToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
-
     private int amount;
 
+    private String codeProdcut;
+
+    private String nameProduct;
+
+    private double currentPrice;
+
     private double newPrice;
+
+    private double totalOrder;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "ORDEN_FK")
+    @JsonIgnore
+    private Orden orden;
+
+    public OrderDetail(int amount, String codeProdcut, String nameProduct, double currentPrice, double newPrice){
+        this.amount = amount;
+        this.codeProdcut = codeProdcut;
+        this.nameProduct = nameProduct;
+        this.currentPrice = currentPrice;
+        this.newPrice = newPrice;
+        this.totalOrder = amount * newPrice;
+    }
 
 }

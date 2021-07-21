@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class ItemOrder {
 
-    private Long productId;
+    private String code;
 
     private int quantity;
 
-    private double price;
+    private double newPrice;
 }

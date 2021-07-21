@@ -13,6 +13,7 @@ import com.easymanager.easymanager.user.model.User;
 import com.easymanager.easymanager.user.service.UserGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.validation.constraints.NotNull;
@@ -47,10 +48,10 @@ public class OrderServiceImpl implements OrderService{
         Distributor distributorToOrder = distributorGateway.findByNit(nit);
 
         //User to receive order
-        User userToOrder = userGateway.findById(387L);
+        User userToOrder = userGateway.findById(1586L);
 
         // Verify
-        if(!userToOrder.getRolesOfUser().contains(roleGateway.findById(1L))){
+        if(!userToOrder.getRolesOfUser().contains(roleGateway.findById(34L))){
             throw new RuntimeException("No estas autorizado para realizar esta orden");
         }
 
@@ -59,17 +60,17 @@ public class OrderServiceImpl implements OrderService{
 
         //Add items to the list product
         for(ItemOrder itemOrder : itemOrders){
-            OrderDetail productDetail = new OrderDetail();
-            Product productInDataBase = productGateway.findById(itemOrder.getProductId());
-            productDetail.setProduct(productInDataBase);
-            productDetail.setAmount(itemOrder.getQuantity());
-            productDetail.setNewPrice(itemOrder.getPrice());
+            Product productInDataBase = productGateway.findByCode(itemOrder.getCode());
+            OrderDetail productDetail = new OrderDetail(
+                    itemOrder.getQuantity(),
+                    productInDataBase.getCode(),
+                    productInDataBase.getName(),
+                    productInDataBase.getPrivatePrice(),
+                    itemOrder.getNewPrice()
+            );
             productsDetails.add(productDetail);
             productGateway.updateStock(itemOrder.getQuantity()*-1, productInDataBase);
         }
-
-        // Persist product details
-        orderDetailsGateway.saveAll(productsDetails);
 
         //Create order
         Orden orderToCreate = new Orden();
@@ -77,12 +78,17 @@ public class OrderServiceImpl implements OrderService{
         // Add attributes to order
         orderToCreate.setDistributor(distributorToOrder);
         orderToCreate.setProductsDetails(productsDetails);
+        orderToCreate.setState(1);//Añadimos el estado inicial de la orden.
 
         // Add order to distributor
         orderToCreate.setUser(userToOrder);
 
         //Persist order
         Orden orderCreated = orderGateway.save(orderToCreate);
+
+        // Persist product details
+        productsDetails.forEach(productDetail->productDetail.setOrden(orderCreated));
+        orderDetailsGateway.saveAll(productsDetails);
 
         return orderCreated;
     }
