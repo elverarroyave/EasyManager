@@ -2,6 +2,7 @@ package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.ClientGateway;
+import com.easymanager.easymanager.config.exeption.BadRequestExeption;
 import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.product.service.ProductGateway;
 import com.easymanager.easymanager.role.service.RoleGateway;
@@ -46,11 +47,11 @@ public class SaleServiceImpl implements SaleService{
 
 
         // Usuario que realiza la venta
-        User userVendedor = userGateway.findById(257L);
+        User userVendedor = userGateway.findById(18L);
 
         // Verify
         if(!userVendedor.getRolesOfUser().contains(roleGateway.findById(1L))){
-            throw new RuntimeException("No estas autorizado para realizar esta venta");
+            throw new BadRequestExeption("No estas autorizado para realizar esta venta");
         }
 
         // Search client to will sale

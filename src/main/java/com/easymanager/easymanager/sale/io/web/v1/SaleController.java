@@ -38,7 +38,6 @@ public class SaleController {
 
         Sale saleCreate = saleService.create(numDocument, items);
 
-        //El estandar de los create dice no devolver un objeto si no la localizacion de este.
         URI location = fromUriString("/api/v1/sales").path("/{id}")
                 .buildAndExpand(saleCreate.getId()).toUri();
 
