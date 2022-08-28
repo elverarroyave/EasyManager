@@ -47,6 +47,7 @@ public class SaleServiceImpl implements SaleService{
 
 
         // Usuario que realiza la venta
+        //TODO se debe crear funcionalidad para recupera el usuario que realiza la venta
         User userVendedor = userGateway.findById(18L);
 
         // Verify

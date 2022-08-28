@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      default_schema: public
+      ddl-auto: update
+    properties:
+      hibernate:
+        order_inserts: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+          lob:
+            non_contextual_creation: true
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-54-159-175-38.compute-1.amazonaws.com:5432/dfc2j6ockc4hqr
+    username: hcbvcovxxhqsau
+    password: 7ec81d875730c8ab0951938dd770eb60123b6a7e4a45de541a02bad715166061
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 5
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
