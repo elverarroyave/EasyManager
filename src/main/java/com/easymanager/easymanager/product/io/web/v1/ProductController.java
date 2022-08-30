@@ -177,4 +177,13 @@ public class ProductController {
         return ResponseEntity.ok(ProductSaveResponse.fromModel(productUpdated));
     }
 
+    @GetMapping("name/")
+    @ApiOperation(value = "Find products by name")
+    public ResponseEntity<List<Product>> findProductsByName(@RequestParam @Valid @NotNull String name){
+
+        List<Product> products = productService.findProductsByName(name);
+
+        return ResponseEntity.ok(products);
+    }
+
 }

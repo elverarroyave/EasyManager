@@ -119,4 +119,9 @@ public class ProductServiceImpl implements ProductService{
         return productGateway.findAllByPages(pageable);
     }
 
+    @Override
+    public List<Product> findProductsByName(String name) {
+        return productGateway.findProductsByName(name);
+    }
+
 }

@@ -25,4 +25,6 @@ public interface ProductService {
 
     Page<Product> findAllByPages(@NotNull Pageable pageable);
 
+    List<Product> findProductsByName(String name);
+
 }

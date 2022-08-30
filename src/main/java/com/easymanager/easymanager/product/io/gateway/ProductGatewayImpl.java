@@ -126,4 +126,11 @@ public class ProductGatewayImpl implements ProductGateway {
         product.setStock(newStock);
         productRepository.save(product);
     }
+
+    @Override
+    public List<Product> findProductsByName(String name) {
+        return productRepository.findProductsByName(name.toUpperCase());
+    }
+
+
 }
