@@ -1,6 +1,6 @@
 package com.easymanager.easymanager.product.service;
 
-import com.easymanager.easymanager.config.exeption.BadRequestExeption;
+
 import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
 import org.slf4j.Logger;
