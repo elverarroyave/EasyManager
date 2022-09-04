@@ -15,6 +15,8 @@ public interface ProductGateway {
 
     void deleteById(@NotNull Long id);
 
+    void deleteByCode(@NotNull String code);
+
     Product update(@NotNull Product productToUpdate);
 
     List<Product> findAll();

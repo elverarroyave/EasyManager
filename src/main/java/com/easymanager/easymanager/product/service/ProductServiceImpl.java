@@ -62,15 +62,15 @@ public class ProductServiceImpl implements ProductService{
         Product productInDatabase = findById(id);
 
         Product productToUpdate = productInDatabase.toBuilder()
-                .name(productToUpdateCmd.getName())
-                .code(productToUpdateCmd.getCode())
+                .name(productToUpdateCmd.getName().trim())
+                .code(productToUpdateCmd.getCode().trim())
                 .baseQuantity(productToUpdateCmd.getBaseQuantity())
                 .stock(productToUpdateCmd.getStock())
-                .brand(productToUpdateCmd.getBrand())
-                .description(productToUpdateCmd.getDescription())
+                .brand(productToUpdateCmd.getBrand().trim())
+                .description(productToUpdateCmd.getDescription().trim())
                 .privatePrice(productToUpdateCmd.getPrivatePrice())
                 .publicPrice(productToUpdateCmd.getPublicPrice())
-                .category(productToUpdateCmd.getCategory())
+                .category(productToUpdateCmd.getCategory().trim())
                 .build();
 
         if(!productInDatabase.getCode().equalsIgnoreCase(productToUpdateCmd.getCode()))
@@ -92,6 +92,16 @@ public class ProductServiceImpl implements ProductService{
 
         logger.debug("End deleteById id={}", id);
     }
+
+    @Override
+    public void deleteByCode(String code) {
+        logger.debug("Begin deleteByCode code={}", code);
+
+        productGateway.deleteByCode(code);
+
+        logger.debug("End deleteByCode code={}", code);
+    }
+
 
     @Override
     @Transactional(readOnly = true)

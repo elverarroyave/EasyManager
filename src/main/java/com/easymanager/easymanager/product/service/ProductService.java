@@ -19,6 +19,8 @@ public interface ProductService {
 
     void deleteById(@NotNull Long id);
 
+    void deleteByCode(@NotNull String code);
+
     Product findById(@NotNull Long id);
 
     Product findByCode(@NotNull String code);

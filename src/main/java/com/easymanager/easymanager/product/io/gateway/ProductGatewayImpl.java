@@ -69,6 +69,12 @@ public class ProductGatewayImpl implements ProductGateway {
     }
 
     @Override
+    public void deleteByCode(String code) {
+        findByCode(code);
+        productRepository.deleteByCode(code);
+    }
+
+    @Override
     public Product update(@NotNull Product productToUpdate) {
 
         logger.debug("Begin update productToUpdate = {}", productToUpdate);
