@@ -52,7 +52,7 @@ public class SaleServiceImpl implements SaleService{
 
         // Verify
         if(!userVendedor.getRolesOfUser().contains(roleGateway.findById(1L))){
-            throw new BadRequestExeption("No estas autorizado para realizar esta venta");
+            throw new BadRequestExeption("Usuario no autorizado para realizar la venta");
         }
 
         // Search client to will sale

@@ -22,7 +22,7 @@ public class ProductGatewayImpl implements ProductGateway {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static final String RESOURCE_NOT_FOUND = "Product not found";
+    private static final String RESOURCE_NOT_FOUND = "Producto no encontrado";
 
     @Autowired
     private ProductRepository productRepository;
@@ -51,7 +51,7 @@ public class ProductGatewayImpl implements ProductGateway {
         logger.debug("Begin findById id = {}", id);
 
         Product productFound = productRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExeption(("Id not found. Check your id please.")));
+                .orElseThrow(() -> new NotFoundExeption(("Producto con id: "+id+", no encontrado. Por favor revise el id.")));
 
         logger.debug("End findById productFound = {}", productFound);
 
@@ -111,8 +111,7 @@ public class ProductGatewayImpl implements ProductGateway {
     public Product findByCode(@NotNull String code) {
 
         Product productFound = productRepository.findByCode(code)
-                .orElseThrow(() -> new NotFoundExeption("Code not found. Please check your code"));
-
+                .orElseThrow(() -> new NotFoundExeption("Código: "+code+", no encontrado. Por favor revisa el código."));
         return productFound;
 
     }
@@ -127,7 +126,7 @@ public class ProductGatewayImpl implements ProductGateway {
     public void updateStock(@NotNull int valor, Product product) {
         int newStock = product.getStock()-valor;
         if(newStock < 0){
-            throw new InsufficientStock("Insufficient stock in product: " + product.getName() + ", units available are: " + product.getStock());
+            throw new InsufficientStock("Stock insuficiente en producto: " + product.getName() + ", unidades disponibles son: " + product.getStock());
         }
         product.setStock(newStock);
         productRepository.save(product);

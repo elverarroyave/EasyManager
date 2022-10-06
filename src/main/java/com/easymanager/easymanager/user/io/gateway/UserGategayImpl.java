@@ -45,7 +45,7 @@ public class UserGategayImpl implements UserGateway {
         logger.debug("Begin find by id={}", id);
 
         User userFound = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExeption("Id not found. Check your id please."));
+                .orElseThrow(() -> new NotFoundExeption("Usuario con id: " + id + ", no encontrado. Por favor revise su id."));
 
         logger.debug("End find by id={}", id);
 
@@ -95,7 +95,7 @@ public class UserGategayImpl implements UserGateway {
         logger.debug("Begin find user for: email={}", email);
 
         User userFound = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundExeption("User not found, please check your email"));
+                .orElseThrow(() -> new NotFoundExeption("Usuario con email: " + email + ", por favor verifique su email."));
 
         logger.debug("End find user for email userFound={}", userFound);
 
@@ -108,7 +108,7 @@ public class UserGategayImpl implements UserGateway {
         logger.debug("Begin find user by document = {}", numDocument);
 
         User userFound = userRepository.findByDocument(numDocument)
-                .orElseThrow(() -> new NotFoundExeption("User not found, please check your number document"));
+                .orElseThrow(() -> new NotFoundExeption("Usuario con documento: " + numDocument+ ", no encontrado. Por favor revise su número de documento."));
 
         logger.debug("End find user by document, userFound = {}", userFound);
 

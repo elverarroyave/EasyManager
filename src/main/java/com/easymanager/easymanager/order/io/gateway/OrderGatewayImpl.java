@@ -60,7 +60,7 @@ public class OrderGatewayImpl implements OrderGateway {
         logger.debug("Being find a order by id {}", id);
 
         Orden ordenFound = orderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExeption("Id order not found. Please Check."));
+                .orElseThrow(() -> new NotFoundExeption("Orden con id: "+id+", no encontrada. Por favor revisar."));
 
         logger.debug("End find a order by id, order = {}", ordenFound);
 

@@ -39,7 +39,7 @@ public class DistributorGatewayImpl implements DistributorGateway {
     public Distributor findById(@NotNull Long id) {
 
         Distributor foundDistributor = distributorRepository.findById(id)
-                .orElseThrow(()-> new NotFoundExeption("Id not found. Pleas check."));
+                .orElseThrow(()-> new NotFoundExeption("Distribuidor con id: "+id+", no encontrado. Por favor revisar."));
 
         return foundDistributor;
     }
@@ -75,7 +75,7 @@ public class DistributorGatewayImpl implements DistributorGateway {
     public Distributor findByNit(@NotNull String nit) {
 
         Distributor foundDistributor = distributorRepository.findByNit(nit)
-                .orElseThrow(()-> new NotFoundExeption("Nit not found. Please check."));
+                .orElseThrow(()-> new NotFoundExeption("Nit: "+nit+", no encontrado. Por favor revisar."));
 
         return foundDistributor;
     }

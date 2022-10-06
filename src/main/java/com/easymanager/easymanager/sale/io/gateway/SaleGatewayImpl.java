@@ -43,8 +43,7 @@ public class SaleGatewayImpl implements SaleGateway {
     public Sale findById(@NotNull Long id) {
 
         Sale saleFound = saleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExeption("Id not found, please check."));
-
+                .orElseThrow(() -> new NotFoundExeption("Venta con id: "+ id +", no encontrada, por favor revisar"));
         return saleFound;
     }
 

@@ -63,7 +63,7 @@ public class RoleGatewayImpl implements RoleGateway {
         logger.debug("Begin find role by id = {}", id);
 
         Role roleFound = roleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExeption("Role not found, please check it id"));
+                .orElseThrow(() -> new NotFoundExeption("Role no encontrado, por favor revisar"));
 
         logger.debug("End find role by id = {}", id);
 
