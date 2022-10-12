@@ -15,12 +15,12 @@ public class ClientParameterValidartion {
 
         //Validation email
         if(clientGateway.verifyEmail(client.getEmail()).isPresent()){
-            throw new BadRequestExeption("This email is already used by another client.");
+            throw new BadRequestExeption("El correo: " +client.getEmail() + ", ya es usado por otro cliente.");
         }
 
         //Validation document
         if(clientGateway.verifyDocument(client.getNumDocument()).isPresent()){
-            throw new BadRequestExeption("This document is already used by another client.");
+            throw new BadRequestExeption("El número de documento: "+client.getNumDocument()+", ya se encuentra registrado en el sistema.");
         }
 
     }

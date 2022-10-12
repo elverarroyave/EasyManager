@@ -34,7 +34,7 @@ public class ClientGatewayImpl implements ClientGateway {
     @Override
     public Client findById(@NotNull Long id) {
         Client clienFound = clientReposiroty.findById(id)
-                .orElseThrow(() -> new NotFoundExeption("Id not found, please check it id"));
+                .orElseThrow(() -> new NotFoundExeption("Cliente con id: "+id+", por favor revisar."));
         return clienFound;
     }
 
@@ -68,7 +68,8 @@ public class ClientGatewayImpl implements ClientGateway {
     public Client findByDocument(@NotNull String numDocument) {
 
         Client clientFound = clientReposiroty.findByDocument(numDocument)
-                .orElseThrow(() -> new NotFoundExeption("Number document not found, please check."));
+                .orElseThrow(() -> new NotFoundExeption("Cliente con número de documento: "+numDocument+", no encontrado" +
+                        ". Por favor revisar."));
 
         return clientFound;
     }

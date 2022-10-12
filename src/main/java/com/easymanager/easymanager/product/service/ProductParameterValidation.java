@@ -15,7 +15,7 @@ public class ProductParameterValidation {
     //Code validation
     void codeValidation(Product product){
         if(productGateway.verifyCode(product.getCode()).isPresent())
-            throw new BadRequestExeption("This code is already used by other product");
+            throw new BadRequestExeption("El código: "+product.getCode()+", ya es usado por otro producto.");
     }
 
     public ProductParameterValidation(){}

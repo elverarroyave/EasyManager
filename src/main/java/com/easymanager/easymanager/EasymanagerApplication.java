@@ -8,6 +8,8 @@ import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.sale.io.repository.SaleRepository;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.model.SaleDetail;
+import com.easymanager.easymanager.user.io.repository.UserRepository;
+import com.easymanager.easymanager.user.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -23,7 +25,6 @@ public class EasymanagerApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext configurableApplicationContext =
 				SpringApplication.run(EasymanagerApplication.class, args);
-
 		/*
 		//Beans
 		SaleRepository saleRepository = configurableApplicationContext.getBean(SaleRepository.class);

@@ -32,7 +32,7 @@ public class ProductSaveRequest {
 
     private String brand;
 
-    @Size(min = 3,max = 250, message = "La descripcion debe ser entre 3 y 250 caracteres")
+    @Size(min = 3,max = 250, message = "La descripción debe ser entre 3 y 250 caracteres")
     private String description;
 
     @NotNull(message = "Es obligatorio ")
