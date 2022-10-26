@@ -22,7 +22,7 @@ spring:
     servlet:
       context-path: /easymanager
 
-  security:
-    user:
-      name: test
-      password: test
+  jwt:
+    secret: secret
+    expiration: 3600
+
