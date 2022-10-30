@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -21,16 +22,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String password;
+
+    @NotNull
+    @Column(unique = true)
+    private String userName;
 
     private String typeDocument;
 
+    @NotNull
     private String numDocument;
 
     private String numberPhone;
 
+    @NotNull
     private String email;
 
     private String address;

@@ -2,6 +2,7 @@ package com.easymanager.easymanager.user.service;
 
 import com.easymanager.easymanager.role.model.Role;
 import com.easymanager.easymanager.role.service.RoleGateway;
+import com.easymanager.easymanager.user.io.repository.UserRepository;
 import com.easymanager.easymanager.user.io.web.v1.model.UserSaveResponse;
 import com.easymanager.easymanager.user.model.User;
 import com.easymanager.easymanager.user.service.model.UserSaveCmd;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private RoleGateway roleGateway;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserParantrerValidation userParantrerValidation;
@@ -152,6 +157,19 @@ public class UserServiceImpl implements UserService{
         logger.debug("End find user for userFound={}", userFound);
 
         return userFound;
+    }
+
+    public Optional<User> getByUserName(String userName){
+        return userRepository.findByUserName(userName);
+    }
+
+    public boolean existByUserName(String userName){
+        return userRepository.existSByUserName(userName);
+    }
+
+
+    public boolean existByEmail(String email){
+        return userRepository.existsByEmail(email);
     }
 
 }

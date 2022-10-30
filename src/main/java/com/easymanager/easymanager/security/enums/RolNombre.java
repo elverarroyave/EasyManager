@@ -1,4 +1,5 @@
 package com.easymanager.easymanager.security.enums;
 
-public class RolNombre {
+public enum RolNombre {
+    ROLE_ADMIN, USER_ROLE;
 }
