@@ -27,7 +27,8 @@ public class SaleDetail {
     private double totalSale;
 
     @ManyToOne(
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
     @JoinColumn(name="FK_SALE")
     @JsonIgnore

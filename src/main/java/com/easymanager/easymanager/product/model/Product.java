@@ -41,4 +41,8 @@ public class Product extends RepresentationModel<Product> {
 
     private LocalDateTime updateDate;
 
+    public void updateStock(int value){
+        stock +=value;
+    }
+
 }

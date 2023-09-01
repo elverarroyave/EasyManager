@@ -27,7 +27,7 @@ public interface ProductGateway {
 
     Optional<Product> verifyCode(@NotNull String code);
 
-    void updateStock(@NotNull int valor, Product product);
+//    void updateStock(@NotNull int valor, Product product);
 
     List<Product> findProductsByName (String name);
 }

@@ -1,6 +1,7 @@
 package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.client.model.Client;
+import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.model.Item;
 

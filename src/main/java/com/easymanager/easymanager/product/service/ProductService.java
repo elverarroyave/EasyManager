@@ -29,4 +29,6 @@ public interface ProductService {
 
     List<Product> findProductsByName(String name);
 
+//    void updateStock(int value, Product product);
+
 }

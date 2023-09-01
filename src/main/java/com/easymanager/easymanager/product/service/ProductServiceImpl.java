@@ -134,4 +134,9 @@ public class ProductServiceImpl implements ProductService{
         return productGateway.findProductsByName(name);
     }
 
+//    @Override
+//    public void updateStock(int value, Product product) {
+//        productGateway.updateStock(value, product);
+//    }
+
 }

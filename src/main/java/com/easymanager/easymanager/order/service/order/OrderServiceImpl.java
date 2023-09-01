@@ -69,7 +69,8 @@ public class OrderServiceImpl implements OrderService{
                     itemOrder.getNewPrice()
             );
             productsDetails.add(productDetail);
-            productGateway.updateStock(itemOrder.getQuantity()*-1, productInDataBase);
+//            productGateway.updateStock(itemOrder.getQuantity()*-1, productInDataBase);
+            productInDataBase.updateStock(itemOrder.getQuantity());
         }
 
         //Create order

@@ -23,6 +23,7 @@ import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 @RestController
 @RequestMapping("/api/v1/distributors")
 @Api(tags = {"Distributors"}, value = "Distributors")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DistributorController {
 
     @Autowired

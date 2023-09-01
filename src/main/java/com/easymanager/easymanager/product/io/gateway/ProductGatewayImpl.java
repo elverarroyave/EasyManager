@@ -122,15 +122,15 @@ public class ProductGatewayImpl implements ProductGateway {
     }
 
 
-    @Override
-    public void updateStock(@NotNull int valor, Product product) {
-        int newStock = product.getStock()-valor;
-        if(newStock < 0){
-            throw new InsufficientStock("Stock insuficiente en producto: " + product.getName() + ", unidades disponibles son: " + product.getStock());
-        }
-        product.setStock(newStock);
-        productRepository.save(product);
-    }
+//    @Override
+//    public void updateStock(@NotNull int valor, Product product) {
+//        int newStock = product.getStock()-valor;
+//        if(newStock < 0){
+//            throw new InsufficientStock("Stock insuficiente en producto: " + product.getName() + ", unidades disponibles son: " + product.getStock());
+//        }
+//        product.setStock(newStock);
+//        productRepository.save(product);
+//    }
 
     @Override
     public List<Product> findProductsByName(String name) {
