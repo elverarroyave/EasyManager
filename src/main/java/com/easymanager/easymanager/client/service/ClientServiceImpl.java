@@ -50,10 +50,10 @@ public class ClientServiceImpl implements ClientService{
         Client clientInDataBase = clientGateway.findById(id);
 
         Client clientToUpdate = clientInDataBase.toBuilder()
-                .name(clientToUpdateCmd.getName())
+                .firstName(clientToUpdateCmd.getName())
                 .lastName(clientToUpdateCmd.getLastName())
                 .numDocument(clientToUpdateCmd.getNumDocument())
-                .numPhone(clientToUpdateCmd.getNumPhone())
+                .numberPhone(clientToUpdateCmd.getNumPhone())
                 .email(clientToUpdateCmd.getEmail())
                 .address(clientToUpdateCmd.getAddress())
                 .build();

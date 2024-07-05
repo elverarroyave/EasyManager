@@ -2,6 +2,7 @@ package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.product.model.Product;
+import com.easymanager.easymanager.sale.io.web.v1.model.SaleSaveRequest;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.model.Item;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface SaleService {
 
-    Sale create(@NotNull String numDocument, @NotNull List<Item> listProducts);
+    Sale create(@NotNull SaleSaveRequest saleSaveRequest);
 
     List<Sale> findByDateRange(@NotNull  String initDate, String finalDate);
 

@@ -42,6 +42,16 @@ public class Sale {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    private double total;
+
+    private Long paymentMethod;
+
+    private boolean isCredit;
+
+    private int paymentAmount;
+
+    private String bill;
+
     private LocalDateTime createDate;
 
     private LocalDateTime updateDate;

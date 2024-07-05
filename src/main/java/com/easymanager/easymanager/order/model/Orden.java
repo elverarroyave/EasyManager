@@ -1,10 +1,8 @@
 package com.easymanager.easymanager.order.model;
 
 
-import com.easymanager.easymanager.distributor.model.Distributor;
+import com.easymanager.easymanager.supplier.model.Supplier;
 import com.easymanager.easymanager.user.model.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,13 +33,28 @@ public class Orden {
     @ManyToOne(
             fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "DISTRIBUTOR_ID")
-    private Distributor distributor;
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 
     @OneToMany(
             mappedBy = "orden"
     )
     private List<OrderDetail> productsDetails = new ArrayList<>();
+
+    @Column(length = 1250)
+    private String details;
+
+    private Long idPaymentMethod;
+
+    private String bill;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isCredit;
+
+    @Column(columnDefinition = "integer default 1")
+    private int paymentAmount;
+
+    private LocalDateTime EstimatedDeliveryDate;
 
     private LocalDateTime createDate;
 

@@ -1,7 +1,10 @@
 package com.easymanager.easymanager.order.service.order;
 
-import com.easymanager.easymanager.distributor.model.Distributor;
-import com.easymanager.easymanager.distributor.service.DistributorGateway;
+import com.easymanager.easymanager.inventory.model.Inventory;
+import com.easymanager.easymanager.inventory.service.InventoryGateway;
+import com.easymanager.easymanager.order.io.web.v1.model.OrderSaveRequest;
+import com.easymanager.easymanager.supplier.model.Supplier;
+import com.easymanager.easymanager.supplier.service.SupplierGateway;
 import com.easymanager.easymanager.order.model.Orden;
 import com.easymanager.easymanager.order.model.OrderDetail;
 import com.easymanager.easymanager.order.service.order.model.ItemOrder;
@@ -13,14 +16,14 @@ import com.easymanager.easymanager.user.model.User;
 import com.easymanager.easymanager.user.service.UserGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.validation.constraints.NotNull;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService{
 
     @Autowired
@@ -33,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
     private ProductGateway productGateway;
 
     @Autowired
-    private DistributorGateway distributorGateway;
+    private SupplierGateway supplierGateway;
 
     @Autowired
     private UserGateway userGateway;
@@ -41,51 +44,60 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private RoleGateway roleGateway;
 
-    @Override
-    public Orden create(@NotNull String nit, @NotNull List<ItemOrder> itemOrders) {
+    @Autowired
+    private InventoryGateway inventoryGateway;
 
-        // Search distributor to will order
-        Distributor distributorToOrder = distributorGateway.findByNit(nit);
+    @Override
+    public Orden create(OrderSaveRequest orderToCreate) {
+
+        // Search supplier to will order
+        Supplier supplierToOrder = supplierGateway.findById(orderToCreate.getSupplierId());
 
         //User to receive order
-        User userToOrder = userGateway.findById(1586L);
+        User userToOrder = userGateway.findById(999L);
 
         // Verify
-        if(!userToOrder.getRolesOfUser().contains(roleGateway.findById(34L))){
-            throw new RuntimeException("No estas autorizado para realizar esta orden");
+        if(!userToOrder.getRolesOfUser().contains(roleGateway.findById(4L))){
+            throw new RuntimeException("No estas autorizado para recepcionar esta orden");
         }
 
-        // We create an list products details
+        // We create a list products details
         List<OrderDetail> productsDetails = new ArrayList<>();
 
         //Add items to the list product
-        for(ItemOrder itemOrder : itemOrders){
+        for(ItemOrder itemOrder : orderToCreate.getProductsDetails()){
             Product productInDataBase = productGateway.findByCode(itemOrder.getCode());
             OrderDetail productDetail = new OrderDetail(
                     itemOrder.getQuantity(),
                     productInDataBase.getCode(),
                     productInDataBase.getName(),
-                    productInDataBase.getPrivatePrice(),
-                    itemOrder.getNewPrice()
+                    itemOrder.getPrice()
             );
             productsDetails.add(productDetail);
-//            productGateway.updateStock(itemOrder.getQuantity()*-1, productInDataBase);
-            productInDataBase.updateStock(itemOrder.getQuantity());
+            //update stock in inventory
+            Inventory inventory = inventoryGateway.findByProductId(productInDataBase.getId());
+            inventory.updateStock(itemOrder.getQuantity());
         }
 
         //Create order
-        Orden orderToCreate = new Orden();
+        Orden newOrder = new Orden();
 
         // Add attributes to order
-        orderToCreate.setDistributor(distributorToOrder);
-        orderToCreate.setProductsDetails(productsDetails);
-        orderToCreate.setState(1);//Añadimos el estado inicial de la orden.
+        newOrder.setSupplier(supplierToOrder);
+        newOrder.setProductsDetails(productsDetails);
+        newOrder.setState(1);//Añadimos el estado inicial de la orden.
+        newOrder.setBill(orderToCreate.getBill());
+        newOrder.setDetails(orderToCreate.getDetails());
+        newOrder.setCredit(orderToCreate.isCredit());
+        newOrder.setPaymentAmount(orderToCreate.getPaymentAmount());
+        newOrder.setIdPaymentMethod(orderToCreate.getIdPaymentMethod());
+        //TODO: Añadir la funcionalidad para crear la factura de la orden
 
-        // Add order to distributor
-        orderToCreate.setUser(userToOrder);
+        // Add order to user
+        newOrder.setUser(userToOrder);
 
         //Persist order
-        Orden orderCreated = orderGateway.save(orderToCreate);
+        Orden orderCreated = orderGateway.save(newOrder);
 
         // Persist product details
         productsDetails.forEach(productDetail->productDetail.setOrden(orderCreated));

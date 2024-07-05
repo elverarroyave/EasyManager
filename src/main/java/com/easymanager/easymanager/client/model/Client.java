@@ -23,13 +23,13 @@ public class Client extends RepresentationModel<Client> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String firstName;
 
     private String lastName;
 
     private String numDocument;
 
-    private String numPhone;
+    private String numberPhone;
 
     private String email;
 

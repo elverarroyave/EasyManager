@@ -1,8 +1,13 @@
 package com.easymanager.easymanager.product.service;
 
 
+import com.easymanager.easymanager.category.service.CategoryGateway;
+import com.easymanager.easymanager.category.service.CategoryService;
+import com.easymanager.easymanager.inventory.model.Inventory;
+import com.easymanager.easymanager.inventory.service.InventoryGateway;
 import com.easymanager.easymanager.product.model.Product;
 import com.easymanager.easymanager.product.service.model.ProductSaveCmd;
+import com.easymanager.easymanager.tools.StringFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,6 +29,12 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductParameterValidation productParameterValidation;
 
+    @Autowired
+    private CategoryGateway categoryGateway;
+
+    @Autowired
+    private InventoryGateway inventoryGateway;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -32,10 +44,21 @@ public class ProductServiceImpl implements ProductService{
 
         Product productToCreate = ProductSaveCmd.toModel(productToCreateCmd);
 
+        //TODO Validacion de categoria
+        productToCreate.setCategory(categoryGateway.findById(productToCreateCmd.getCategory()));
+
         //Validacion de codigo unico de un producto
         productParameterValidation.codeValidation(productToCreate);
 
         Product productCreated = productGateway.save(productToCreate);
+        Inventory inventory = Inventory.builder()
+                .product(productCreated)
+                .stock(0)
+                .baseStock(0)
+                .createDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
+                .build();
+        inventoryGateway.create(inventory);
 
         logger.debug("End create userCreated = {}", productCreated);
 
@@ -62,15 +85,21 @@ public class ProductServiceImpl implements ProductService{
         Product productInDatabase = findById(id);
 
         Product productToUpdate = productInDatabase.toBuilder()
-                .name(productToUpdateCmd.getName().trim())
-                .code(productToUpdateCmd.getCode().trim())
-                .baseQuantity(productToUpdateCmd.getBaseQuantity())
-                .stock(productToUpdateCmd.getStock())
-                .brand(productToUpdateCmd.getBrand().trim())
-                .description(productToUpdateCmd.getDescription().trim())
-                .privatePrice(productToUpdateCmd.getPrivatePrice())
-                .publicPrice(productToUpdateCmd.getPublicPrice())
-                .category(productToUpdateCmd.getCategory().trim())
+                .name(StringFormat.trim(productToUpdateCmd.getName()))
+                .price(productToUpdateCmd.getPrice())
+                .brand(StringFormat.trim(productToUpdateCmd.getBrand()))
+                .model(StringFormat.trim(productToUpdateCmd.getModel()))
+                .amountMountWarranty(productToUpdateCmd.getAmountMountWarranty())
+                .height(productToUpdateCmd.getHeight())
+                .width(productToUpdateCmd.getWidth())
+                .depth(productToUpdateCmd.getDepth())
+                .weight(productToUpdateCmd.getWeight())
+                .color(StringFormat.trim(productToUpdateCmd.getColor()))
+                .voltage(StringFormat.trim(productToUpdateCmd.getVoltage()))
+                .code(StringFormat.trim(productToUpdateCmd.getCode()))
+                .brand(StringFormat.trim(productToUpdateCmd.getBrand()))
+                .description(StringFormat.trim(productToUpdateCmd.getDescription()))
+                .category(categoryGateway.findById(productToUpdateCmd.getCategory()))
                 .build();
 
         if(!productInDatabase.getCode().equalsIgnoreCase(productToUpdateCmd.getCode()))
@@ -133,10 +162,5 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> findProductsByName(String name) {
         return productGateway.findProductsByName(name);
     }
-
-//    @Override
-//    public void updateStock(int value, Product product) {
-//        productGateway.updateStock(value, product);
-//    }
 
 }

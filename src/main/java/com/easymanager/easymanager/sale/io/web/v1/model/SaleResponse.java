@@ -29,9 +29,9 @@ public class SaleResponse {
         SaleClientResponse clientResponse = new SaleClientResponse(
                 saleToResponse.getClient().getId(),
                 saleToResponse.getClient().getNumDocument(),
-                saleToResponse.getClient().getName(),
+                saleToResponse.getClient().getFirstName(),
                 saleToResponse.getClient().getLastName(),
-                saleToResponse.getClient().getNumPhone(),
+                saleToResponse.getClient().getNumberPhone(),
                 saleToResponse.getClient().getAddress()
         );
         SaleUserResponse userResponse = new SaleUserResponse(

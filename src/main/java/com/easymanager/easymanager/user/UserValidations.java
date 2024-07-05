@@ -12,7 +12,7 @@ public class UserValidations {
 
     public static User verifyUserMakeToSale(Long idUser, UserGateway userGateway, RoleGateway roleGateway){
         User userSeller = userGateway.findById(idUser);
-        if(!userSeller.getRolesOfUser().contains(roleGateway.findById(1L))){
+        if(!userSeller.getRolesOfUser().contains(roleGateway.findById(3L))){
             throw new BadRequestExeption("Usuario no autorizado para realizar la venta");
         }
         return userSeller;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <preConditions>
+        <runningAs username="easymanager"/>
+    </preConditions>
+
+    <changeSet author="elverarroyave" id="payment-method-default-1">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM payment_method
+                WHERE id = 1
+            </sqlCheck>
+        </preConditions>
+
+        <insert tableName="payment_method">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Efectivo"/>
+            <column name="description" value="Pago en efectivo"/>
+            <column name="handling_fee" value="0"/>
+            <column name="limit_amount" value="50000000"/>
+            <column name="state" value="true"/>
+            <column name="total_amount" value="50000000"/>
+            <column name="cutout_date" value="2024-03-11T14:40:00Z"/>
+            <column name="payment_date" value="2024-03-11T14:40:00Z"/>
+            <column name="create_date" value="2024-03-11T14:40:00Z"/>
+            <column name="update_date" value="2024-03-11T14:40:00Z"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

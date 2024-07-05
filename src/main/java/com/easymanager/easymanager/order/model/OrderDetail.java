@@ -21,8 +21,6 @@ public class OrderDetail {
 
     private String nameProduct;
 
-    private double currentPrice;
-
     private double newPrice;
 
     private double totalOrder;
@@ -34,11 +32,10 @@ public class OrderDetail {
     @JsonIgnore
     private Orden orden;
 
-    public OrderDetail(int amount, String codeProdcut, String nameProduct, double currentPrice, double newPrice){
+    public OrderDetail(int amount, String codeProdcut, String nameProduct, double newPrice){
         this.amount = amount;
         this.codeProdcut = codeProdcut;
         this.nameProduct = nameProduct;
-        this.currentPrice = currentPrice;
         this.newPrice = newPrice;
         this.totalOrder = amount * newPrice;
     }

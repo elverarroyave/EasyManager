@@ -1,6 +1,5 @@
 package com.easymanager.easymanager.product.io.gateway;
 
-import com.easymanager.easymanager.config.exeption.InsufficientStock;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import com.easymanager.easymanager.product.io.repository.ProductRepository;
 import com.easymanager.easymanager.product.model.Product;
@@ -33,8 +32,8 @@ public class ProductGatewayImpl implements ProductGateway {
         logger.debug("Begin save productToCreate = {}", productToCreate);
 
         final Product productToBeCreated = productToCreate.toBuilder()
-                .createDate(LocalDateTime.now())
-                .updateDate(LocalDateTime.now())
+                .createdDate(LocalDateTime.now())
+                .updatedDate(LocalDateTime.now())
                 .build();
 
         final Product productCreated = productRepository.save(productToBeCreated);
@@ -80,7 +79,7 @@ public class ProductGatewayImpl implements ProductGateway {
         logger.debug("Begin update productToUpdate = {}", productToUpdate);
 
         final Product productToBeUpdate = productToUpdate.toBuilder()
-                .updateDate(LocalDateTime.now()).build();
+                .updatedDate(LocalDateTime.now()).build();
 
         final Product productUpdated = productRepository.save(productToBeUpdate);
 
@@ -121,16 +120,6 @@ public class ProductGatewayImpl implements ProductGateway {
         return productRepository.findByCode(code);
     }
 
-
-//    @Override
-//    public void updateStock(@NotNull int valor, Product product) {
-//        int newStock = product.getStock()-valor;
-//        if(newStock < 0){
-//            throw new InsufficientStock("Stock insuficiente en producto: " + product.getName() + ", unidades disponibles son: " + product.getStock());
-//        }
-//        product.setStock(newStock);
-//        productRepository.save(product);
-//    }
 
     @Override
     public List<Product> findProductsByName(String name) {

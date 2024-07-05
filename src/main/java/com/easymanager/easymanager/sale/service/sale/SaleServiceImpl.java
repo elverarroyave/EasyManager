@@ -2,11 +2,13 @@ package com.easymanager.easymanager.sale.service.sale;
 
 import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.ClientGateway;
+import com.easymanager.easymanager.config.exeption.NotFoundExeption;
+import com.easymanager.easymanager.inventory.service.InventoryGateway;
 import com.easymanager.easymanager.product.service.ProductGateway;
 import com.easymanager.easymanager.role.service.RoleGateway;
+import com.easymanager.easymanager.sale.io.web.v1.model.SaleSaveRequest;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.model.SaleDetail;
-import com.easymanager.easymanager.sale.service.sale.model.Item;
 import com.easymanager.easymanager.sale.service.saleDetails.SaleDetailsGateway;
 import com.easymanager.easymanager.sale.service.saleDetails.TransactionDetail;
 import com.easymanager.easymanager.tools.Dates;
@@ -44,32 +46,39 @@ public class SaleServiceImpl implements SaleService{
     @Autowired
     private RoleGateway roleGateway;
 
+    @Autowired
+    private InventoryGateway inventoryGateway;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     @Override
-    public Sale create(@NotNull String numDocument, @NotNull List<Item> items) {
+    public Sale create(@NotNull SaleSaveRequest saleSaveRequest) {
         TransactionDetail saleDetails = new TransactionDetail();
         //TODO se debe crear funcionalidad para recuperar el usuario que realiza la venta
         //Verifica si el usuario tiene permisos para realizar la venta
-        User userSeller = UserValidations.verifyUserMakeToSale(18L, userGateway, roleGateway);
+        User userSeller = UserValidations.verifyUserMakeToSale(999L, userGateway, roleGateway);
         //Procesa la lista de productos
-        List<SaleDetail> productsDetail = saleDetails.processProductList(items, productGateway);
+        List<SaleDetail> productsDetail = saleDetails.processProductList(saleSaveRequest.getItems(), productGateway, inventoryGateway);
         //Realiza la venta y procesa en base de datos
-        Sale saleCreated = saleDetails.makeSale(numDocument,userSeller,productsDetail, clientGateway, saleGateway);
+        Sale saleCreated = saleDetails.buildSale(saleSaveRequest, userSeller, productsDetail, clientGateway, saleGateway);
         // Asociar los detalles de la venta a la venta creada y guardarlos
-        productsDetail.forEach(productDetail->productDetail.setSale(saleCreated));
+        productsDetail.forEach(productDetail -> productDetail.setSale(saleCreated));
         saleDetailsGateway.save(productsDetail);
+        //TODO se debe crear funcionalidad para crear factura de la venta
+        //TODO se debe crear funcionalidad para enviar un correo al cliente con la factura de la venta
         return saleCreated;
     }
 
     public List<Sale> findByDateRange(@NotNull String initDate, String finalDate){
         logger.debug("Sale Service, begin find sales by date range init = {} - end = {}", initDate, finalDate);
-        Dates dates = new Dates();
         logger.debug("Sale Service, end find sales by date range init = {} - end = {}", initDate, finalDate);
-        return saleGateway.findByDateRange(
-                dates.convertDateStringToLocalDateTime(initDate)
-                ,dates.convertDateStringToLocalDateTime(finalDate)
-        );
+        List<Sale> sales = saleGateway.findByDateRange(
+                Dates.convertDateStringToLocalDateTime(initDate)
+                , Dates.convertDateStringToLocalDateTime(finalDate));
+        if(sales.isEmpty()){
+            throw new NotFoundExeption("No se encontraron ventas en el rango de fechas seleccionadas.");
+        }
+        return sales;
     }
 
     @Override

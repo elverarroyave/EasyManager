@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <preConditions>
+        <runningAs username="easymanager"/>
+    </preConditions>
+
+    <changeSet author="elverarroyave" id="insert-role-1">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM role
+                WHERE id = 1
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="role">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="ADMIN"/>
+            <column name="description" value="Administrador del sistema"/>
+            <column name="state" value="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="insert-role-2">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM role
+                WHERE id = 2
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="role">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="REPARTIDOR"/>
+            <column name="description" value="Usuario encargado de las entregas a domicilio"/>
+            <column name="state" value="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="insert-role-3">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM role
+                WHERE id = 3
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="role">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="VENDEDOR"/>
+            <column name="description" value="Usuario encargado de las ventas"/>
+            <column name="state" value="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="insert-role-4">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM role
+                WHERE id = 4
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="role">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="RECEPTOR"/>
+            <column name="description" value="Usuario encargado de las ventas"/>
+            <column name="state" value="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

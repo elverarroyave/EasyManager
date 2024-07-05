@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <preConditions>
+        <runningAs username="easymanager"/>
+    </preConditions>
+
+    <changeSet author="elverarroyave" id="user-default-1">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM usuario
+                WHERE id = 999
+            </sqlCheck>
+        </preConditions>
+
+        <insert tableName="usuario">
+            <column name="id" valueNumeric="999"/>
+            <column name="address" value="Calle 17 #15-67"/>
+            <column name="create_date" value="2024-03-11T14:40:00Z"/>
+            <column name="email" value="userdefault@gmail.com"/>
+            <column name="name" value="usuario default"/>
+            <column name="num_document" value="55555"/>
+            <column name="number_phone" value="3014564545"/>
+            <column name="password" value="55555"/>
+            <column name="type_document" value="Cedula"/>
+            <column name="update_date" value="2024-03-11T14:40:00Z"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="user-role-default">
+        <insert tableName="user_role">
+            <column name="user_id" valueNumeric="999"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" valueNumeric="999"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" valueNumeric="999"/>
+            <column name="role_id" value="3"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" valueNumeric="999"/>
+            <column name="role_id" value="4"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

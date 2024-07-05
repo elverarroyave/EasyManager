@@ -1,5 +1,6 @@
 package com.easymanager.easymanager.product.model;
 
+import com.easymanager.easymanager.category.model.Category;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -23,26 +24,37 @@ public class Product extends RepresentationModel<Product> {
 
     private String code;
 
-    private int baseQuantity;
-
-    private int stock;
-
     private String brand;
 
+    @Column(length = 1250)
     private String description;
 
-    private double privatePrice;
+    private String model;
 
-    private double publicPrice;
+    @Column(columnDefinition = "integer default 0")
+    private double price;
 
-    private String category;
+    @Column(columnDefinition = "integer default 0")
+    private int amountMountWarranty;
+    @Column(columnDefinition = "integer default 0")
+    private double height;
+    @Column(columnDefinition = "integer default 0")
+    private double width;
+    @Column(columnDefinition = "integer default 0")
+    private double depth;
+    @Column(columnDefinition = "integer default 0")
+    private double weight;
 
-    private LocalDateTime createDate;
+    private String color;
 
-    private LocalDateTime updateDate;
+    private String voltage;
 
-    public void updateStock(int value){
-        stock +=value;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "id")
+    private Category category;
+
+    private LocalDateTime createdDate;
+
+    private LocalDateTime updatedDate;
 
 }

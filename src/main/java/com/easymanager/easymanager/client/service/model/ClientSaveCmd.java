@@ -7,7 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -41,10 +40,10 @@ public class ClientSaveCmd {
 
     public static Client toModel(ClientSaveCmd clientToSaveCmd){
         return Client.builder()
-                .name(clientToSaveCmd.getName())
+                .firstName(clientToSaveCmd.getName())
                 .lastName(clientToSaveCmd.getLastName())
                 .numDocument(clientToSaveCmd.getNumDocument())
-                .numPhone(clientToSaveCmd.getNumPhone())
+                .numberPhone(clientToSaveCmd.getNumPhone())
                 .email(clientToSaveCmd.getEmail())
                 .address(clientToSaveCmd.getAddress())
                 .build();

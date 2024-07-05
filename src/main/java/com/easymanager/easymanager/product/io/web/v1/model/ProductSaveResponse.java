@@ -1,5 +1,6 @@
 package com.easymanager.easymanager.product.io.web.v1.model;
 
+import com.easymanager.easymanager.category.model.Category;
 import com.easymanager.easymanager.product.model.Product;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
@@ -19,38 +20,53 @@ public class ProductSaveResponse extends RepresentationModel<Product> {
 
     private String code;
 
-    private int baseQuantity;
-
-    private int stock;
-
     private String brand;
 
     private String description;
 
-    private double privatePrice;
+    private Category category;
 
-    private double publicPrice;
+    private String model;
 
-    private String category;
+    private int amountMountWarranty;
 
-    private LocalDateTime createDate;
+    private double price;
 
-    private LocalDateTime updateDate;
+    private double height;
+
+    private double width;
+
+    private double depth;
+
+    private double weight;
+
+    private String color;
+
+    private String voltage;
+
+    private LocalDateTime createdDate;
+
+    private LocalDateTime updatedDate;
 
     public static ProductSaveResponse fromModel(Product product){
         return ProductSaveResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .code(product.getCode())
-                .baseQuantity(product.getBaseQuantity())
-                .stock(product.getStock())
                 .brand(product.getBrand())
                 .description(product.getDescription())
-                .privatePrice(product.getPrivatePrice())
-                .publicPrice(product.getPublicPrice())
                 .category(product.getCategory())
-                .createDate(product.getCreateDate())
-                .updateDate(product.getUpdateDate())
+                .model(product.getModel())
+                .amountMountWarranty(product.getAmountMountWarranty())
+                .price(product.getPrice())
+                .height(product.getHeight())
+                .width(product.getWidth())
+                .depth(product.getDepth())
+                .weight(product.getWeight())
+                .color(product.getColor())
+                .voltage(product.getVoltage())
+                .createdDate(product.getCreatedDate())
+                .updatedDate(product.getUpdatedDate())
                 .build();
     }
 

@@ -9,5 +9,5 @@ public class ItemOrder {
 
     private int quantity;
 
-    private double newPrice;
+    private double price;
 }

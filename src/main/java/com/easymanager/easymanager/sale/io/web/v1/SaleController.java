@@ -2,6 +2,7 @@ package com.easymanager.easymanager.sale.io.web.v1;
 
 import com.easymanager.easymanager.config.MessageResponse;
 import com.easymanager.easymanager.sale.io.web.v1.model.SaleResponse;
+import com.easymanager.easymanager.sale.io.web.v1.model.SaleSaveRequest;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.SaleService;
 import com.easymanager.easymanager.sale.service.sale.model.Item;
@@ -34,9 +35,9 @@ public class SaleController {
 
     @PostMapping
     @ApiOperation(value = "Create a sale")
-    public ResponseEntity<Void> create(@RequestBody @Valid List<Item> items, String numDocument){
+    public ResponseEntity<Void> create(@RequestBody @Valid SaleSaveRequest saleSaveRequest){
 
-        Sale saleCreate = saleService.create(numDocument, items);
+        Sale saleCreate = saleService.create(saleSaveRequest);
 
         URI location = fromUriString("/api/v1/sales").path("/{id}")
                 .buildAndExpand(saleCreate.getId()).toUri();

@@ -1,7 +1,6 @@
 package com.easymanager.easymanager.client.io.web.v1.model;
 
 import com.easymanager.easymanager.client.model.Client;
-import com.easymanager.easymanager.sale.model.Sale;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
@@ -35,10 +34,10 @@ public class ClientSaveResponse extends RepresentationModel<ClientSaveResponse> 
     public static ClientSaveResponse fromModel(Client clientToResponse){
         return ClientSaveResponse.builder()
                 .id(clientToResponse.getId())
-                .name(clientToResponse.getName())
+                .name(clientToResponse.getFirstName())
                 .lastName(clientToResponse.getLastName())
                 .numDocument(clientToResponse.getNumDocument())
-                .numPhone(clientToResponse.getNumPhone())
+                .numPhone(clientToResponse.getNumberPhone())
                 .email(clientToResponse.getEmail())
                 .address(clientToResponse.getAddress())
                 .createDate(clientToResponse.getCreateDate())

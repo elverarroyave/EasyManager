@@ -14,4 +14,9 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
 
+  liquibase :
+    change-log: classpath:db.changelog/changelog-master.xml
+    url:
+
+
 

@@ -1,7 +1,6 @@
 package com.easymanager.easymanager.sale.model;
 
 
-import com.easymanager.easymanager.product.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -16,9 +15,11 @@ public class SaleDetail {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Long idSale;
+
     private int amount;
 
-    private String codeProduct;
+    private Long idProduct;
 
     private String nameProduct;
 
@@ -34,9 +35,9 @@ public class SaleDetail {
     @JsonIgnore
     private Sale sale;
 
-    public SaleDetail(int amount, String codeProduct, String nameProduct, double publicPriceProduct, double totalSale) {
+    public SaleDetail(int amount, Long idProduct, String nameProduct, double publicPriceProduct, double totalSale) {
         this.amount = amount;
-        this.codeProduct = codeProduct;
+        this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.publicPriceProduct = publicPriceProduct;
         this.totalSale = totalSale;

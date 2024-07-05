@@ -7,7 +7,7 @@ passwork: test
 url data source: jdbc:h2:file:./data/easyDB 
 
 Swagger:
-http://localhost:8080/swagger-ui.html#/
+http://localhost:8080/easymanager/swagger-ui.html#/
 
 Data Base:
-http://localhost:8080/h2
+http://localhost:8080/easymanager/h2

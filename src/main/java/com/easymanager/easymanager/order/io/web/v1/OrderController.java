@@ -1,5 +1,6 @@
 package com.easymanager.easymanager.order.io.web.v1;
 
+import com.easymanager.easymanager.order.io.web.v1.model.OrderSaveRequest;
 import com.easymanager.easymanager.order.model.Orden;
 import com.easymanager.easymanager.order.service.order.OrderService;
 import com.easymanager.easymanager.order.service.order.model.ItemOrder;
@@ -31,10 +32,9 @@ public class OrderController {
 
     @PostMapping
     @ApiOperation(value = "Create a order")
-    public ResponseEntity<Void> create(String dnit,
-                                       @RequestBody List<ItemOrder> itemOrders){
+    public ResponseEntity<Void> create(@RequestBody OrderSaveRequest orderSaveRequest){
 
-        Orden orderCreated = orderService.create(dnit, itemOrders);
+        Orden orderCreated = orderService.create(orderSaveRequest);
 
         URI location = fromUriString("/api/v1/sales").path("/{id}")
                 .buildAndExpand(orderCreated.getId()).toUri();

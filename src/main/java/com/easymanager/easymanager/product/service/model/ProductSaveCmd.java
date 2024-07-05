@@ -29,23 +29,42 @@ public class ProductSaveCmd {
 
     private String description;
 
-    private double privatePrice;
+    private Long category;
 
-    private double publicPrice;
+    private String model;
 
-    private String category;
+    private int amountMountWarranty;
+
+    private double price;
+
+    private double height;
+
+    private double width;
+
+    private double depth;
+
+    private double weight;
+
+    private String color;
+
+    private String voltage;
 
     public static Product toModel(ProductSaveCmd productToCreateCmd){
         return Product.builder()
                     .name(productToCreateCmd.getName().trim())
                     .code(productToCreateCmd.getCode().trim())
-                    .baseQuantity(productToCreateCmd.getBaseQuantity())
-                    .stock(productToCreateCmd.getStock())
                     .brand(productToCreateCmd.getBrand().trim())
                     .description(productToCreateCmd.getDescription().trim())
-                    .privatePrice(productToCreateCmd.getPrivatePrice())
-                    .publicPrice(productToCreateCmd.getPublicPrice())
-                    .category(productToCreateCmd.getCategory())
+                    .model(productToCreateCmd.getModel().trim())
+                    .price(productToCreateCmd.getPrice())
+//                    .category(productToCreateCmd.getCategory())
+                    .amountMountWarranty(productToCreateCmd.getAmountMountWarranty())
+                    .height(productToCreateCmd.getHeight())
+                    .width(productToCreateCmd.getWidth())
+                    .depth(productToCreateCmd.getDepth())
+                    .weight(productToCreateCmd.getWeight())
+                    .color(productToCreateCmd.getColor().trim())
+                    .voltage(productToCreateCmd.getVoltage().trim())
                     .build();
         }
 }
