@@ -5,7 +5,6 @@ import com.easymanager.easymanager.sale.io.web.v1.model.SaleResponse;
 import com.easymanager.easymanager.sale.io.web.v1.model.SaleSaveRequest;
 import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.service.sale.SaleService;
-import com.easymanager.easymanager.sale.service.sale.model.Item;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

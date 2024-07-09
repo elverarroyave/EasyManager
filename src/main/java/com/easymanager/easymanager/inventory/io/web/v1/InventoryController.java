@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/inventory")
@@ -55,6 +56,13 @@ public class InventoryController {
     public ResponseEntity<Inventory> findById(@PathVariable @NotNull  Long id) {
         Inventory inventoryFound = inventoryService.findById(id);
         return new ResponseEntity<Inventory>(inventoryFound, HttpStatus.OK);
+    }
+
+    @GetMapping("findByProductCode/{code}")
+    @ApiOperation(value = "Get inventory by product code")
+    public ResponseEntity<Inventory> findByProductCode(@PathVariable String code) {
+        Inventory inventoryFound = inventoryService.findByProductCode(code);
+        return ResponseEntity.ok(inventoryFound);
     }
 
 }

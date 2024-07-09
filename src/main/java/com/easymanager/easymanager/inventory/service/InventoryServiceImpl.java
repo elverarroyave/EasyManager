@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InventoryServiceImpl implements InventoryService{
 
@@ -43,4 +45,10 @@ public class InventoryServiceImpl implements InventoryService{
     public Inventory findById(Long id) {
         return inventoryGateway.findById(id);
     }
+
+    @Override
+    public Inventory findByProductCode(String code) {
+        return inventoryGateway.findByProductCode(code);
+    }
+
 }

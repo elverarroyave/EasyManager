@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public interface InventoryService {
     Inventory findByProductId(@NotNull  Long productId);
@@ -15,4 +16,6 @@ public interface InventoryService {
     Page<Inventory> findAllByPages(@NotNull Pageable pageable);
 
     Inventory findById(Long id);
+
+    Inventory findByProductCode(@NotNull String code);
 }
