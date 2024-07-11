@@ -20,19 +20,19 @@ import java.util.List;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
 
-@RestController
-@RequestMapping("/api/v1/orders")
-@Api(tags = "Orders", value = "Orders")
-public class OrderController {
+    @RestController
+    @RequestMapping("/api/v1/orders")
+    @Api(tags = "Orders", value = "Orders")
+    public class OrderController {
 
-    @Autowired
-    OrderService orderService;
+        @Autowired
+        OrderService orderService;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+        private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @PostMapping
-    @ApiOperation(value = "Create a order")
-    public ResponseEntity<Void> create(@RequestBody OrderSaveRequest orderSaveRequest){
+        @PostMapping
+        @ApiOperation(value = "Create a order")
+        public ResponseEntity<Void> create(@RequestBody OrderSaveRequest orderSaveRequest){
 
         Orden orderCreated = orderService.create(orderSaveRequest);
 
