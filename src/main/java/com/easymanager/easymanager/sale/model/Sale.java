@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "SALE")
 @Table(name = "SALE")
-public class Sale {
+public class Sale implements Serializable {
+
+    private static final long serialVersionUID = 3648317578605854716L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +45,19 @@ public class Sale {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @Column(nullable = true)
+    private double subtotal;
+
+    @Column(nullable = true)
+    private double interestRate;
+
     private double total;
+
+    @Column(nullable = true)
+    private double remainingBalance;
+
+    @Column(nullable = true)
+    private double monthlyPayment;
 
     private Long paymentMethod;
 

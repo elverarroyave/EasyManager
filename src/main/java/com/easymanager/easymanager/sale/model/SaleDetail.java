@@ -5,17 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity(name = "SALE_DETAIL")
 @Table
-public class SaleDetail {
+public class SaleDetail implements Serializable {
+
+    private static final long serialVersionUID = 2844622109359081864L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private Long idSale;
 
     private int amount;
 

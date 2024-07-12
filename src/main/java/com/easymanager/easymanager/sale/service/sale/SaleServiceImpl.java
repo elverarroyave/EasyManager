@@ -55,13 +55,9 @@ public class SaleServiceImpl implements SaleService{
     public Sale create(@NotNull SaleSaveRequest saleSaveRequest) {
         TransactionDetail saleDetails = new TransactionDetail();
         //TODO se debe crear funcionalidad para recuperar el usuario que realiza la venta
-        //Verifica si el usuario tiene permisos para realizar la venta
         User userSeller = UserValidations.verifyUserMakeToSale(999L, userGateway, roleGateway);
-        //Procesa la lista de productos
         List<SaleDetail> productsDetail = saleDetails.processProductList(saleSaveRequest.getItems(), productGateway, inventoryGateway);
-        //Realiza la venta y procesa en base de datos
         Sale saleCreated = saleDetails.buildSale(saleSaveRequest, userSeller, productsDetail, clientGateway, saleGateway);
-        // Asociar los detalles de la venta a la venta creada y guardarlos
         productsDetail.forEach(productDetail -> productDetail.setSale(saleCreated));
         saleDetailsGateway.save(productsDetail);
         //TODO se debe crear funcionalidad para crear factura de la venta
