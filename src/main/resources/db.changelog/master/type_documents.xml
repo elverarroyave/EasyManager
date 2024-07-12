@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <preConditions>
+        <runningAs username="easymanager"/>
+    </preConditions>
+
+    <changeSet author="elverarroyave" id="insert-type-documents">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_head
+                WHERE name = 'TYPE_DOCUMENTS_COL'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_head">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="TYPE_DOCUMENTS_COL"/>
+            <column name="description" value="Tipos de documentos de identificacion colombia"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="insert-type-document-CC">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'CC'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="1"/>
+            <column name="key" value="CC"/>
+            <column name="value" value="Cédula de ciudadanía"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="insert-type-document-TI">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'TI'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="2"/>
+            <column name="key" value="TI"/>
+            <column name="value" value="Tarjeta de identidad"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

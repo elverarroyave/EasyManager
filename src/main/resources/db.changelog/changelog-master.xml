@@ -7,4 +7,6 @@
         <include file="roles/create_roles.xml" relativeToChangelogFile="true"/>
         <include file="users/user_defaults.xml" relativeToChangelogFile="true"/>
         <include file="payment_methods/payment_methods.xml" relativeToChangelogFile="true"/>
+        <include file="master/type_documents.xml" relativeToChangelogFile="true"/>
+        <include file="master/current_monthly_interest.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

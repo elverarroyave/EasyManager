@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <preConditions>
+        <runningAs username="easymanager"/>
+    </preConditions>
+
+    <changeSet author="elverarroyave" id="current_monthly_interest">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_head
+                WHERE name = 'CURRENT_MONTHLY_INTEREST'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_head">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="CURRENT_MONTHLY_INTEREST"/>
+            <column name="description" value="Interes corriente de un mes"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="current_monthly_interest_body">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Interes corriente por mes'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="3"/>
+            <column name="key" value="Interes corriente por mes"/>
+            <column name="value" value="5"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
