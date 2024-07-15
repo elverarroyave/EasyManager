@@ -2,6 +2,8 @@ package com.easymanager.easymanager.sale.service.saleDetails;
 
 import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.ClientGateway;
+import com.easymanager.easymanager.config.ProductExceptionController;
+import com.easymanager.easymanager.config.exeption.InsufficientStock;
 import com.easymanager.easymanager.inventory.model.Inventory;
 import com.easymanager.easymanager.inventory.service.InventoryGateway;
 import com.easymanager.easymanager.product.service.ProductGateway;
@@ -21,6 +23,10 @@ public class TransactionDetail {
         List<SaleDetail> productsDetail = new ArrayList<>();
         for(Item item: items){
             Inventory inventoryProduct = inventoryGateway.findByProductCode(item.getCode());
+            //Verificar stock
+            if(inventoryProduct.getStock() < item.getQuantity()){
+                throw new InsufficientStock("No hay suficiente stock para el producto: " + inventoryProduct.getProduct().getName());
+            }
             SaleDetail productDetail = new SaleDetail(
                     item.getQuantity(),
                     inventoryProduct.getProduct().getId(),
