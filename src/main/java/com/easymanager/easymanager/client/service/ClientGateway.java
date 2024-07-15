@@ -28,4 +28,6 @@ public interface ClientGateway {
 
     Optional<Client> verifyDocument(String document);
 
+    List<Client> findByCoincidence(@NotNull String coincidence);
+
 }

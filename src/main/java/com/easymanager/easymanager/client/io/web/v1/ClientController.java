@@ -105,6 +105,22 @@ public class ClientController {
         return ResponseEntity.ok(CollectionModel.of(clients, allClientLink));
     }
 
+    @GetMapping("/coincidence/{coincidence}")
+    @ApiOperation(value = "Find client by coincidence.")
+    public ResponseEntity<CollectionModel<ClientSaveResponse>> findByCoincidence(@Valid @PathVariable("coincidence") @NotNull String coincidence){
+        List<Client> clientsFound = clientService.findByCoincidence(coincidence);
+
+        List<ClientSaveResponse> clients = ClientSaveResponse.fromModelList(clientsFound);
+
+        clients.forEach(client -> {
+            client.add(linkTo(methodOn(ClientController.class).findById(client.getId())).withSelfRel());
+        });
+
+        Link allClientLink = linkTo(methodOn(ClientController.class).findAll()).withSelfRel();
+
+        return ResponseEntity.ok(CollectionModel.of(clients, allClientLink));
+    }
+
     @GetMapping("/document/{numDocument}")
     @ApiOperation(value = "Find client by number document.")
     public ResponseEntity<CollectionModel<ClientSaveResponse>> findByNumDocument(@Valid @PathVariable("numDocument") @NotNull String numDocument){

@@ -83,4 +83,9 @@ public class ClientGatewayImpl implements ClientGateway {
     public Optional<Client> verifyDocument(String document) {
         return clientReposiroty.findByDocument(document);
     }
+
+    @Override
+    public List<Client> findByCoincidence(String coincidence) {
+        return clientReposiroty.findByCoincidence(coincidence.toUpperCase());
+    }
 }

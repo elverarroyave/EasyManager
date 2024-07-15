@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <preConditions>
+        <runningAs username="easymanager"/>
+    </preConditions>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_head
+                WHERE name = 'MONTHLY_PAYMENT_OPTIONS'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_head">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="MONTHLY_PAYMENT_OPTIONS"/>
+            <column name="description" value="Opciones de metodos de pagos mensuales"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options_one">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Un mes'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="4"/>
+            <column name="key" value="Un mes"/>
+            <column name="value" value="1"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options_dos">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Dos mes'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="5"/>
+            <column name="key" value="Dos meses"/>
+            <column name="value" value="2"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options_tres">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Tres meses'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="6"/>
+            <column name="key" value="Tres meses"/>
+            <column name="value" value="3"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options_cuatro">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Cuatro meses'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="7"/>
+            <column name="key" value="Cuatro meses"/>
+            <column name="value" value="4"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options_cinco">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Cinco meses'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="8"/>
+            <column name="key" value="Cinco meses"/>
+            <column name="value" value="5"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elverarroyave" id="monthly_payment_options_seis">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM master_body
+                WHERE key = 'Seis meses'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="master_body">
+            <column name="id" valueNumeric="9"/>
+            <column name="key" value="Seis meses"/>
+            <column name="value" value="6"/>
+            <column name="created_date" value="2024-07-12T12:12:51"/>
+            <column name="update_date" value="2024-07-12T12:12:51"/>
+            <column name="fk_head" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

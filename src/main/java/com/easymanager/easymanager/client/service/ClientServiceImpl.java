@@ -74,4 +74,9 @@ public class ClientServiceImpl implements ClientService{
     public Client findByNumDocument(@NotNull String numDocument) {
         return clientGateway.findByDocument(numDocument);
     }
+
+    @Override
+    public List<Client> findByCoincidence(String coincidence) {
+        return clientGateway.findByCoincidence(coincidence);
+    }
 }

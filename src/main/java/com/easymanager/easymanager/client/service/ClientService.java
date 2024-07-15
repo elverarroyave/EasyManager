@@ -23,4 +23,6 @@ public interface ClientService {
     void deleteById(@NotNull Long id);
 
     Client findByNumDocument(@NotNull String numDocument);
+
+    List<Client> findByCoincidence(@NotNull String coincidence);
 }

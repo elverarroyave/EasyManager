@@ -4,6 +4,8 @@ import com.easymanager.easymanager.client.model.Client;
 import com.easymanager.easymanager.client.service.ClientGateway;
 import com.easymanager.easymanager.config.exeption.NotFoundExeption;
 import com.easymanager.easymanager.inventory.service.InventoryGateway;
+import com.easymanager.easymanager.master.Service.MasterService;
+import com.easymanager.easymanager.master.io.repository.MasterBodyRepository;
 import com.easymanager.easymanager.product.service.ProductGateway;
 import com.easymanager.easymanager.role.service.RoleGateway;
 import com.easymanager.easymanager.sale.io.web.v1.model.SaleSaveRequest;
@@ -49,15 +51,21 @@ public class SaleServiceImpl implements SaleService{
     @Autowired
     private InventoryGateway inventoryGateway;
 
+    @Autowired
+    private MasterBodyRepository masterBodyRepository;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public Sale create(@NotNull SaleSaveRequest saleSaveRequest) {
+
+        float currentMonthlyInterest = Float.parseFloat(masterBodyRepository.findByMasterHeadName("CURRENT_MONTHLY_INTEREST").get(0).getValue());
+
         TransactionDetail saleDetails = new TransactionDetail();
         //TODO se debe crear funcionalidad para recuperar el usuario que realiza la venta
         User userSeller = UserValidations.verifyUserMakeToSale(999L, userGateway, roleGateway);
         List<SaleDetail> productsDetail = saleDetails.processProductList(saleSaveRequest.getItems(), productGateway, inventoryGateway);
-        Sale saleCreated = saleDetails.buildSale(saleSaveRequest, userSeller, productsDetail, clientGateway, saleGateway);
+        Sale saleCreated = saleDetails.buildSale(saleSaveRequest, userSeller, productsDetail, currentMonthlyInterest, clientGateway, saleGateway);
         productsDetail.forEach(productDetail -> productDetail.setSale(saleCreated));
         saleDetailsGateway.save(productsDetail);
         //TODO se debe crear funcionalidad para crear factura de la venta

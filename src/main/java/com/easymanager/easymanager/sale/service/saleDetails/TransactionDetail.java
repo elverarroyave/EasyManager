@@ -34,8 +34,16 @@ public class TransactionDetail {
         return productsDetail;
     }
 
-    public Sale buildSale(SaleSaveRequest saleSaveRequest, User user, List<SaleDetail> saleDetails, ClientGateway clientGateway, SaleGateway saleGateway){
+    public Sale buildSale(SaleSaveRequest saleSaveRequest, User user, List<SaleDetail> saleDetails, float currentMonthlyInterest, ClientGateway clientGateway, SaleGateway saleGateway){
         Client clientToSale =  clientGateway.findByDocument(saleSaveRequest.getClientNumDocument());
+        double subTotal = saleDetails.stream().mapToDouble(SaleDetail::getTotalSale).sum();
+        double interestRate = 0;
+        if(saleSaveRequest.isCredit()){
+            interestRate = subTotal * currentMonthlyInterest * saleSaveRequest.getPaymentAmount();
+        }
+        double total = subTotal + interestRate;
+        double monthlyPayment = total / (saleSaveRequest.getPaymentAmount() + 1);
+        double remainingBalance = total - saleSaveRequest.getFirstPayment();
         Sale saleCreate = Sale.builder()
                 .client(clientToSale)
                 .productsDetail(saleDetails)
@@ -43,9 +51,16 @@ public class TransactionDetail {
                 .isCredit(saleSaveRequest.isCredit())
                 .paymentAmount(saleSaveRequest.getPaymentAmount())
                 .paymentMethod(saleSaveRequest.getPaymentMethod())
+                .subtotal(subTotal)
+                .interestRate(interestRate)
+                .monthlyPayment(monthlyPayment)
+                .total(total)
+                .remainingBalance(remainingBalance)
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
         return saleCreate;
     }
+
+
 }

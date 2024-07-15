@@ -18,6 +18,8 @@ public class SaleSaveRequest {
 
     private Long paymentMethod;
 
+    private double firstPayment;
+
     private List<Item> items;
 
 }
