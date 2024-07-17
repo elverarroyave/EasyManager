@@ -5,6 +5,7 @@ import com.easymanager.easymanager.sale.model.SaleDetail;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,24 @@ public class SaleResponse {
     private List<SaleDetail> productsDetail = new ArrayList<>();
 
     private SaleUserResponse user;
+
+    private double subtotal;
+
+    private double interestRate;
+
+    private double total;
+
+    private double remainingBalance;
+
+    private double monthlyPayment;
+
+    private Long paymentMethod;
+
+    private boolean isCredit;
+
+    private int paymentAmount;
+
+    private String bill;
 
     private SaleClientResponse client;
 
@@ -46,6 +65,14 @@ public class SaleResponse {
                 .productsDetail(saleToResponse.getProductsDetail())
                 .user(userResponse)
                 .client(clientResponse)
+                .subtotal(saleToResponse.getSubtotal())
+                .interestRate(saleToResponse.getInterestRate())
+                .total(saleToResponse.getTotal())
+                .remainingBalance(saleToResponse.getRemainingBalance())
+                .monthlyPayment(saleToResponse.getMonthlyPayment())
+                .paymentMethod(saleToResponse.getPaymentMethod())
+                .isCredit(saleToResponse.isCredit())
+                .paymentAmount(saleToResponse.getPaymentAmount())
                 .build();
     }
 

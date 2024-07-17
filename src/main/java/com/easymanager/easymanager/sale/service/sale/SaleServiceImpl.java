@@ -64,7 +64,7 @@ public class SaleServiceImpl implements SaleService{
         TransactionDetail saleDetails = new TransactionDetail();
         //TODO se debe crear funcionalidad para recuperar el usuario que realiza la venta
         User userSeller = UserValidations.verifyUserMakeToSale(999L, userGateway, roleGateway);
-        List<SaleDetail> productsDetail = saleDetails.processProductList(saleSaveRequest.getItems(), productGateway, inventoryGateway);
+        List<SaleDetail> productsDetail = saleDetails.processProductList(saleSaveRequest, productGateway, inventoryGateway, currentMonthlyInterest);
         Sale saleCreated = saleDetails.buildSale(saleSaveRequest, userSeller, productsDetail, currentMonthlyInterest, clientGateway, saleGateway);
         productsDetail.forEach(productDetail -> productDetail.setSale(saleCreated));
         saleDetailsGateway.save(productsDetail);

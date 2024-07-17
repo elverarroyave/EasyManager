@@ -12,6 +12,7 @@ import com.easymanager.easymanager.sale.model.Sale;
 import com.easymanager.easymanager.sale.model.SaleDetail;
 import com.easymanager.easymanager.sale.service.sale.SaleGateway;
 import com.easymanager.easymanager.sale.service.sale.model.Item;
+import com.easymanager.easymanager.tools.DoubleUtil;
 import com.easymanager.easymanager.user.model.User;
 
 import java.time.LocalDateTime;
@@ -19,8 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 public class TransactionDetail {
 
-    public List<SaleDetail> processProductList(List<Item> items, ProductGateway productGateway, InventoryGateway inventoryGateway){
+    public List<SaleDetail> processProductList(SaleSaveRequest saleSaveRequest, ProductGateway productGateway, InventoryGateway inventoryGateway, float currentMonthlyInterest){
         List<SaleDetail> productsDetail = new ArrayList<>();
+        List<Item> items = saleSaveRequest.getItems();
         for(Item item: items){
             Inventory inventoryProduct = inventoryGateway.findByProductCode(item.getCode());
             //Verificar stock
@@ -32,7 +34,7 @@ public class TransactionDetail {
                     inventoryProduct.getProduct().getId(),
                     inventoryProduct.getProduct().getName(),
                     inventoryProduct.getProduct().getPrice(),
-                    item.getQuantity()*inventoryProduct.getProduct().getPrice()
+                    item.getQuantity()*inventoryProduct.getProduct().getPrice()*currentMonthlyInterest*saleSaveRequest.getPaymentAmount()
             );
             productsDetail.add(productDetail);
             inventoryProduct.updateStock(-item.getQuantity());
@@ -58,10 +60,10 @@ public class TransactionDetail {
                 .paymentAmount(saleSaveRequest.getPaymentAmount())
                 .paymentMethod(saleSaveRequest.getPaymentMethod())
                 .subtotal(subTotal)
-                .interestRate(interestRate)
-                .monthlyPayment(monthlyPayment)
-                .total(total)
-                .remainingBalance(remainingBalance)
+                .interestRate(DoubleUtil.roundDecimal(interestRate,2))
+                .monthlyPayment(DoubleUtil.roundDecimal(monthlyPayment,2))
+                .total(DoubleUtil.roundDecimal(total,2))
+                .remainingBalance(DoubleUtil.roundDecimal(remainingBalance,2))
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();

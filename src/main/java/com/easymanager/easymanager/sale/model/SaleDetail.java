@@ -3,6 +3,7 @@ package com.easymanager.easymanager.sale.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +27,12 @@ public class SaleDetail implements Serializable {
 
     private double publicPriceProduct;
 
+    @Column(columnDefinition = "double precision default 0")
+    private double subTotal;
+
+    @Column(columnDefinition = "double precision default 0")
+    private double interest;
+
     private double totalSale;
 
     @ManyToOne(
@@ -36,12 +43,14 @@ public class SaleDetail implements Serializable {
     @JsonIgnore
     private Sale sale;
 
-    public SaleDetail(int amount, Long idProduct, String nameProduct, double publicPriceProduct, double totalSale) {
+    public SaleDetail(int amount, Long idProduct, String nameProduct, double publicPriceProduct, double interest) {
         this.amount = amount;
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.publicPriceProduct = publicPriceProduct;
-        this.totalSale = totalSale;
+        this.subTotal = amount * publicPriceProduct;
+        this.interest = interest;
+        this.totalSale = subTotal + interest;
     }
 
     public SaleDetail(){}
