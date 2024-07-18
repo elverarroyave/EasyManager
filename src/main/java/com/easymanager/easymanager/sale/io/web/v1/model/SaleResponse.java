@@ -26,6 +26,8 @@ public class SaleResponse {
 
     private double subtotal;
 
+    private double interest;
+
     private double interestRate;
 
     private double total;
@@ -66,6 +68,7 @@ public class SaleResponse {
                 .user(userResponse)
                 .client(clientResponse)
                 .subtotal(saleToResponse.getSubtotal())
+                .interest(saleToResponse.getInterest())
                 .interestRate(saleToResponse.getInterestRate())
                 .total(saleToResponse.getTotal())
                 .remainingBalance(saleToResponse.getRemainingBalance())

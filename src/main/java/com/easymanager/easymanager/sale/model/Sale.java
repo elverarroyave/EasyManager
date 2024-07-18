@@ -51,6 +51,9 @@ public class Sale implements Serializable {
     @Column(nullable = true)
     private double interestRate;
 
+    @Column(columnDefinition = "double precision default 0")
+    private double interest;
+
     private double total;
 
     @Column(nullable = true)

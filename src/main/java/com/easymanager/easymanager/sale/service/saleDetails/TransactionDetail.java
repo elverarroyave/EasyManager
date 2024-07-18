@@ -44,12 +44,12 @@ public class TransactionDetail {
 
     public Sale buildSale(SaleSaveRequest saleSaveRequest, User user, List<SaleDetail> saleDetails, float currentMonthlyInterest, ClientGateway clientGateway, SaleGateway saleGateway){
         Client clientToSale =  clientGateway.findByDocument(saleSaveRequest.getClientNumDocument());
-        double subTotal = saleDetails.stream().mapToDouble(SaleDetail::getTotalSale).sum();
-        double interestRate = 0;
+        double subTotal = saleDetails.stream().mapToDouble(SaleDetail::getSubTotal).sum();
+        double interest = 0;
         if(saleSaveRequest.isCredit()){
-            interestRate = subTotal * currentMonthlyInterest * saleSaveRequest.getPaymentAmount();
+            interest = subTotal * currentMonthlyInterest * saleSaveRequest.getPaymentAmount();
         }
-        double total = subTotal + interestRate;
+        double total = subTotal + interest;
         double monthlyPayment = total / (saleSaveRequest.getPaymentAmount() + 1);
         double remainingBalance = total - saleSaveRequest.getFirstPayment();
         Sale saleCreate = Sale.builder()
@@ -60,7 +60,8 @@ public class TransactionDetail {
                 .paymentAmount(saleSaveRequest.getPaymentAmount())
                 .paymentMethod(saleSaveRequest.getPaymentMethod())
                 .subtotal(subTotal)
-                .interestRate(DoubleUtil.roundDecimal(interestRate,2))
+                .interestRate(DoubleUtil.roundDecimal(currentMonthlyInterest,2))
+                .interest(DoubleUtil.roundDecimal(interest,2))
                 .monthlyPayment(DoubleUtil.roundDecimal(monthlyPayment,2))
                 .total(DoubleUtil.roundDecimal(total,2))
                 .remainingBalance(DoubleUtil.roundDecimal(remainingBalance,2))
